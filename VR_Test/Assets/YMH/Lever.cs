@@ -1,43 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Lever : MonoBehaviour
 {
-    private SpringJoint springJoint;
-    private Camera mainCamera;
-    private bool isDragging;
+    [SerializeField]
+    private LeverString leverStringRenderer;
+    private XRGrabInteractable interacable;
 
+    [SerializeField]
+    private Transform leverGrabObject;
+    private Transform interactor;
+
+    private void Awake()
+    {
+        interacable = leverGrabObject.GetComponent<XRGrabInteractable>();
+    }
     private void Start()
     {
-        springJoint = GetComponent<SpringJoint>();
-        mainCamera = Camera.main;
-        isDragging = false;
+        interacable.selectEntered.AddListener(PrepareLeverString);
+        interacable.selectExited.AddListener(ResetLeverString);
+    }
+
+    private void ResetLeverString(SelectExitEventArgs arg0)
+    {
+        interactor = null;
+        leverGrabObject.localPosition = Vector3.zero;
+        leverStringRenderer.CreateString(null);
+    }
+    private void PrepareLeverString(SelectEnterEventArgs arg0)
+    {
+        interactor = arg0.interactorObject.transform;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(interactor != null)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit) && hit.transform == transform)
-            {
-                isDragging = true;
-            }
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            isDragging = false;
-        }
-
-        if (isDragging)
-        {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            Vector3 hitPoint = ray.GetPoint(10);
-            springJoint.connectedAnchor = hitPoint;
+            leverStringRenderer.CreateString(leverGrabObject.transform.position);
         }
     }
 }
