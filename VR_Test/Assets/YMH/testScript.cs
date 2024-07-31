@@ -17,13 +17,18 @@ public class testScript : MonoBehaviour
         blueColor = new Color(0, 0, 1, 1);
         redColor = new Color(1, 0, 0, 1);
     }
-
+    public void ChangeDefalut()
+    {
+        mesh.material.color = Color.white;
+    }
     public void ChangeBlue()
     {
+        Debug.Log("¡¢√À");
         mesh.material.color = blueColor;
     }
     public void ChangeRed()
     {
+        Debug.Log("¿‚±‚");
         mesh.material.color = redColor;
     }
 }
