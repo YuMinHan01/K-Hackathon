@@ -69,13 +69,15 @@ public class Lever : MonoBehaviour
     }
     private void Update()
     {
-        if(interactor[0] != null)
+        leverStringRenderer[0].CreateString(leverGrabObject[0].transform.position);
+        leverStringRenderer[1].CreateString(leverGrabObject[1].transform.position);
+        if (interactor[0] != null)
         {
-            leverStringRenderer[0].CreateString(leverGrabObject[0].transform.position);
+            
         }
         if (interactor[1] != null)
         {
-            leverStringRenderer[1].CreateString(leverGrabObject[1].transform.position);
+            //leverStringRenderer[1].CreateString(leverGrabObject[1].transform.position);
         }
     }
     private void OnUse()
