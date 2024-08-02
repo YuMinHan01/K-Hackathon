@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -8,12 +9,13 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class Lever : MonoBehaviour
 {
     [SerializeField]
-    private LeverString leverStringRenderer;
-    private XRGrabInteractable interacable;
+    private LeverString[] leverStringRenderer = new LeverString[2];
+    [SerializeField]
+    private XRGrabInteractable[] interacable = new XRGrabInteractable[2];
 
     [SerializeField]
-    private Transform leverGrabObject;
-    private Transform interactor;
+    private Transform[] leverGrabObject = new Transform[2];
+    private Transform[] interactor = new Transform[2] { null, null };
 
     [Header("구명조끼 크기 및 소요시간")]
     [SerializeField]
@@ -31,37 +33,57 @@ public class Lever : MonoBehaviour
     [HideInInspector]
     public UnityEvent UseJacket;
     float currentValue;
+    //bool[] isGrab = new bool[2] { };
+    int leverState = 0;
 
     private void Awake()
     {
-        interacable = leverGrabObject.GetComponent<XRGrabInteractable>();
+        leverStringRenderer[0] = GameObject.Find("Lever(Left)").GetComponent<LeverString>();
+        leverStringRenderer[1] = GameObject.Find("Lever(Right)").GetComponent<LeverString>();
+
+        leverGrabObject[0] = GameObject.Find("End Point(Left)").GetComponent<Transform>();
+        leverGrabObject[1] = GameObject.Find("End Point(Right)").GetComponent<Transform>();
+
+        interacable[0] = leverGrabObject[0].GetComponent<XRGrabInteractable>();
+        interacable[1] = leverGrabObject[1].GetComponent<XRGrabInteractable>();
     }
     private void Start()
     {
-        interacable.selectEntered.AddListener(PrepareLeverString);
-        interacable.selectExited.AddListener(ResetLeverString);
+        interacable[0].selectEntered.AddListener(PrepareLeverString);
+        interacable[1].selectEntered.AddListener(PrepareLeverString);
+        interacable[0].selectExited.AddListener(ResetLeverString);
+        interacable[1].selectExited.AddListener(ResetLeverString);
         UseJacket.AddListener(OnUse);
     }
 
     private void ResetLeverString(SelectExitEventArgs arg0)
     {
-        interactor = null;
-        //leverGrabObject.localPosition = Vector3.zero;
-        //leverStringRenderer.CreateString(null);
+        int leverNum = arg0.interactableObject.transform.GetComponent<LeverData>().leverNum;
+        interactor[leverNum] = null;
     }
     private void PrepareLeverString(SelectEnterEventArgs arg0)
     {
-        interactor = arg0.interactorObject.transform;
+        int leverNum = arg0.interactableObject.transform.GetComponent<LeverData>().leverNum;
+        Debug.Log(leverNum);
+        interactor[leverNum] = arg0.interactorObject.transform;
     }
     private void Update()
     {
-        if(interactor != null)
+        if(interactor[0] != null)
         {
-            leverStringRenderer.CreateString(leverGrabObject.transform.position);
+            leverStringRenderer[0].CreateString(leverGrabObject[0].transform.position);
+        }
+        if (interactor[1] != null)
+        {
+            leverStringRenderer[1].CreateString(leverGrabObject[1].transform.position);
         }
     }
     private void OnUse()
     {
+        leverState += 1;
+        if (leverState < 2)
+            return;
+
         Debug.Log("자켓 작동");
         StartCoroutine("TestCoroutine");
     }

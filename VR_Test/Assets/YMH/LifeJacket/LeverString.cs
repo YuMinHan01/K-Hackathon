@@ -20,6 +20,7 @@ public class LeverString : MonoBehaviour
 
     public void CreateString(Vector3? endPosition)
     {
+        Debug.Log("선 그리기");
         Vector3[] linePoints = new Vector3[2];
 
         linePoints[0] = endPoint_1.localPosition;
@@ -34,6 +35,10 @@ public class LeverString : MonoBehaviour
             {
                 lever.UseJacket.Invoke();
                 isUsed = true;
+            }
+            else
+            {
+
             }
         }
         else
