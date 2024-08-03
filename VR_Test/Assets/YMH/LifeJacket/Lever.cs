@@ -59,25 +59,24 @@ public class Lever : MonoBehaviour
     private void ResetLeverString(SelectExitEventArgs arg0)
     {
         int leverNum = arg0.interactableObject.transform.GetComponent<LeverData>().leverNum;
+        arg0.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = true;
         interactor[leverNum] = null;
     }
     private void PrepareLeverString(SelectEnterEventArgs arg0)
     {
         int leverNum = arg0.interactableObject.transform.GetComponent<LeverData>().leverNum;
-        Debug.Log(leverNum);
+        arg0.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = false;
         interactor[leverNum] = arg0.interactorObject.transform;
     }
     private void Update()
     {
-        leverStringRenderer[0].CreateString(leverGrabObject[0].transform.position);
-        leverStringRenderer[1].CreateString(leverGrabObject[1].transform.position);
         if (interactor[0] != null)
         {
-            
+            leverStringRenderer[0].CreateString(leverGrabObject[0].transform.position);
         }
         if (interactor[1] != null)
         {
-            //leverStringRenderer[1].CreateString(leverGrabObject[1].transform.position);
+            leverStringRenderer[1].CreateString(leverGrabObject[1].transform.position);
         }
     }
     private void OnUse()
@@ -87,9 +86,9 @@ public class Lever : MonoBehaviour
             return;
 
         Debug.Log("자켓 작동");
-        StartCoroutine("TestCoroutine");
+        StartCoroutine("UseCoroutine");
     }
-    IEnumerator TestCoroutine()
+    IEnumerator UseCoroutine()
     {
         float elaposedTime = 0f;
 
@@ -99,38 +98,6 @@ public class Lever : MonoBehaviour
             transform.localScale = new Vector3(maxSize, currentValue, maxSize);
             elaposedTime += Time.deltaTime;
             yield return null;
-        }
-    }
-    private void OnOff()
-    {
-        Debug.Log("자켓 기능 끄기");
-        StartCoroutine("TestOffCoroutine");
-    }
-    IEnumerator TestOffCoroutine()
-    {
-        float elaposedTime = 0f;
-
-        while (elaposedTime < requiredTime)
-        {
-            currentValue = Mathf.Lerp(maxSize, minSize, elaposedTime / requiredTime);
-            transform.localScale = new Vector3(maxSize, currentValue, maxSize);
-            elaposedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    private void OnGUI()
-    {
-        GUI.Box(new Rect(10, 10, 100, 90), "구명조끼 기능");
-
-        if (GUI.Button(new Rect(20, 40, 80, 20), "구명조끼 On"))
-        {
-            OnUse();
-        }
-
-        if (GUI.Button(new Rect(20, 70, 80, 20), "구명조끼 Off"))
-        {
-            OnOff();
         }
     }
 }

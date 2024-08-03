@@ -23,11 +23,10 @@ public class LeverString : MonoBehaviour
         Vector3[] linePoints = new Vector3[2];
 
         linePoints[0] = endPoint_1.localPosition;
-        linePoints[1] = transform.InverseTransformPoint(endPosition.Value);
         if (endPosition != null)
         {
             //실시간 선 따라가기
-            //linePoints[1] = transform.InverseTransformPoint(endPosition.Value);
+            linePoints[1] = transform.InverseTransformPoint(endPosition.Value);
 
             //길이 측정
             float length = Vector3.Distance(linePoints[0], linePoints[1]);
@@ -37,11 +36,11 @@ public class LeverString : MonoBehaviour
                 isUsed = true;
             }
         }
-        //else
-        //{
-        //    linePoints[1] = endPoint_2.transform.localPosition;
-        //}
-        
+        else
+        {
+            linePoints[1] = endPoint_2.transform.localPosition;
+        }
+
         lineRenderer.positionCount = linePoints.Length;
         lineRenderer.SetPositions(linePoints);
     }
