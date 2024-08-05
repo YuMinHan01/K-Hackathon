@@ -9,12 +9,14 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class Lever : MonoBehaviour
 {
     [SerializeField]
+    private GameObject[] leverObject = new GameObject[2];
+    [SerializeField]
     private LeverString[] leverStringRenderer = new LeverString[2];
     [SerializeField]
     private XRGrabInteractable[] interacable = new XRGrabInteractable[2];
 
     [SerializeField]
-    private GameObject[] leverGrabObject = new GameObject[2];
+    private Transform[] leverGrabObject = new Transform[2];
     private Transform[] interactor = new Transform[2] { null, null };
 
     [Header("구명조끼 크기 및 소요시간")]
@@ -33,16 +35,17 @@ public class Lever : MonoBehaviour
     [HideInInspector]
     public UnityEvent UseJacket;
     float currentValue;
-    //bool[] isGrab = new bool[2] { };
     int leverState = 0;
 
     private void Awake()
     {
-        leverStringRenderer[0] = GameObject.Find("Lever(Left)").GetComponent<LeverString>();
-        leverStringRenderer[1] = GameObject.Find("Lever(Right)").GetComponent<LeverString>();
+        leverObject[0] = GameObject.Find("Lever(Left)");
+        leverObject[1] = GameObject.Find("Lever(Right)");
+        leverStringRenderer[0] = leverObject[0].GetComponent<LeverString>();
+        leverStringRenderer[1] = leverObject[1].GetComponent<LeverString>();
 
-        leverGrabObject[0] = GameObject.Find("End Point(Left)").GetComponent<GameObject>();
-        leverGrabObject[1] = GameObject.Find("End Point(Right)").GetComponent<GameObject>();
+        leverGrabObject[0] = GameObject.Find("End Point(Left)").GetComponent<Transform>();
+        leverGrabObject[1] = GameObject.Find("End Point(Right)").GetComponent<Transform>();
 
         interacable[0] = leverGrabObject[0].GetComponent<XRGrabInteractable>();
         interacable[1] = leverGrabObject[1].GetComponent<XRGrabInteractable>();
@@ -55,19 +58,25 @@ public class Lever : MonoBehaviour
         interacable[1].selectExited.AddListener(ResetLeverString);
         UseJacket.AddListener(OnUse);
 
-        leverGrabObject[0].SetActive(false);
-        leverGrabObject[1].SetActive(false);
+        leverObject[0].SetActive(false);
+        leverObject[1].SetActive(false);
     }
     public void OnLever()
     {
-        leverGrabObject[0].SetActive(true);
-        leverGrabObject[1].SetActive(true);
+        leverObject[0].SetActive(true);
+        leverObject[1].SetActive(true);
     }
     private void ResetLeverString(SelectExitEventArgs arg0)
     {
         int leverNum = arg0.interactableObject.transform.GetComponent<LeverData>().leverNum;
         arg0.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = true;
         interactor[leverNum] = null;
+
+        if(leverState >= 2)
+        {
+            leverObject[0].SetActive(false);
+            leverObject[1].SetActive(false);
+        }
     }
     private void PrepareLeverString(SelectEnterEventArgs arg0)
     {
@@ -92,7 +101,6 @@ public class Lever : MonoBehaviour
         if (leverState < 2)
             return;
 
-        Debug.Log("자켓 작동");
         StartCoroutine("UseCoroutine");
     }
     IEnumerator UseCoroutine()

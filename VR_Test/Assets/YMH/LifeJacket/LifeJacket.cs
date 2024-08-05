@@ -8,6 +8,7 @@ public class LifeJacket : MonoBehaviour
     private LifeJacketRotate lifeJacketRotate;
     private XRGrabInteractable interactable;
     private Lever lever;
+    private BuckelManager buckelManager; 
     private Rigidbody rigid;
     private CapsuleCollider lifeJacketCollider;
 
