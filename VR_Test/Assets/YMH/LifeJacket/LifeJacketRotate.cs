@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class LifeJacketRotate : MonoBehaviour
 {
-    [HideInInspector]
-    public bool isWear = false;
-    private Transform cameraTransform;
-    private Vector3 initialLocalPosition;
-    private Quaternion initialLocalRotation;
+    private bool isWear = false;
+    private Transform mainCameraTransform;
+    private Vector3 fixedLocalPosition = new Vector3(0, -0.3f, 0);
 
-    void Start()
+    private Vector3 fixedPosition;
+
+
+    void OnEnable()
     {
-        cameraTransform = Camera.main.transform;
-        initialLocalPosition = transform.localPosition;
-        initialLocalRotation = transform.localRotation;
+        isWear = true;
+        mainCameraTransform = Camera.main.transform;
+        fixedPosition = mainCameraTransform.position + mainCameraTransform.rotation * fixedLocalPosition;
     }
 
     void LateUpdate()
@@ -20,11 +21,11 @@ public class LifeJacketRotate : MonoBehaviour
         if (!isWear)
             return;
 
-        Quaternion parentRotation = cameraTransform.rotation;
-        parentRotation.x = 0;
-        parentRotation.z = 0;
+        transform.localRotation = Quaternion.Euler(mainCameraTransform.eulerAngles.x * (-1), 0, 0);
 
-        transform.rotation = parentRotation * initialLocalRotation;
-        transform.localPosition = initialLocalPosition;
+        Vector3 fixedPosition = mainCameraTransform.position + fixedLocalPosition;
+        Vector3 rotatedOffset = mainCameraTransform.rotation * new Vector3(fixedLocalPosition.x, 0, 0);
+        fixedPosition.x += rotatedOffset.x;
+        transform.position = fixedPosition;
     }
 }

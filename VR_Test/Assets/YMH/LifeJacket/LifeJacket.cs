@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class LifeJacket : MonoBehaviour
 {
-    private LifeJacketRotate lifeJackeRotate;
+    private LifeJacketRotate lifeJacketRotate;
     private XRGrabInteractable interactable;
     private Lever lever;
     private Rigidbody rigid;
@@ -16,7 +16,7 @@ public class LifeJacket : MonoBehaviour
 
     private void Awake()
     {
-        lifeJackeRotate = GetComponent<LifeJacketRotate>();
+        lifeJacketRotate = GetComponent<LifeJacketRotate>();
         interactable = GetComponent<XRGrabInteractable>();
         lever = GetComponentInChildren<Lever>();
         rigid = GetComponent<Rigidbody>();
@@ -24,6 +24,7 @@ public class LifeJacket : MonoBehaviour
     }
     private void Start()
     {
+        lifeJacketRotate.enabled = false;
         isPosition = false;
         lifeJacketCollider.enabled = false;
         interactable.selectEntered.AddListener(OnSelectEntered);
@@ -44,7 +45,7 @@ public class LifeJacket : MonoBehaviour
             rigid.isKinematic = true;
             rigid.useGravity = false;
             GetComponentInChildren<MeshCollider>().enabled = false;
-            lifeJackeRotate.isWear = true;
+            lifeJacketRotate.enabled = true;
         }
         lifeJacketCollider.enabled = false;
     }
