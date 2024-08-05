@@ -45,7 +45,7 @@ public class LeverString : MonoBehaviour
         lineRenderer.SetPositions(linePoints);
     }
 
-    private void Start()
+    private void OnEnable()
     {
         CreateString(null);
     }

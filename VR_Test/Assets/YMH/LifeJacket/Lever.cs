@@ -14,7 +14,7 @@ public class Lever : MonoBehaviour
     private XRGrabInteractable[] interacable = new XRGrabInteractable[2];
 
     [SerializeField]
-    private Transform[] leverGrabObject = new Transform[2];
+    private GameObject[] leverGrabObject = new GameObject[2];
     private Transform[] interactor = new Transform[2] { null, null };
 
     [Header("구명조끼 크기 및 소요시간")]
@@ -41,8 +41,8 @@ public class Lever : MonoBehaviour
         leverStringRenderer[0] = GameObject.Find("Lever(Left)").GetComponent<LeverString>();
         leverStringRenderer[1] = GameObject.Find("Lever(Right)").GetComponent<LeverString>();
 
-        leverGrabObject[0] = GameObject.Find("End Point(Left)").GetComponent<Transform>();
-        leverGrabObject[1] = GameObject.Find("End Point(Right)").GetComponent<Transform>();
+        leverGrabObject[0] = GameObject.Find("End Point(Left)").GetComponent<GameObject>();
+        leverGrabObject[1] = GameObject.Find("End Point(Right)").GetComponent<GameObject>();
 
         interacable[0] = leverGrabObject[0].GetComponent<XRGrabInteractable>();
         interacable[1] = leverGrabObject[1].GetComponent<XRGrabInteractable>();
@@ -54,8 +54,15 @@ public class Lever : MonoBehaviour
         interacable[0].selectExited.AddListener(ResetLeverString);
         interacable[1].selectExited.AddListener(ResetLeverString);
         UseJacket.AddListener(OnUse);
-    }
 
+        leverGrabObject[0].SetActive(false);
+        leverGrabObject[1].SetActive(false);
+    }
+    public void OnLever()
+    {
+        leverGrabObject[0].SetActive(true);
+        leverGrabObject[1].SetActive(true);
+    }
     private void ResetLeverString(SelectExitEventArgs arg0)
     {
         int leverNum = arg0.interactableObject.transform.GetComponent<LeverData>().leverNum;

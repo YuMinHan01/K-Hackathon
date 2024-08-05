@@ -38,14 +38,19 @@ public class LifeJacket : MonoBehaviour
     {
         if (isPosition) 
         {
+            //목 부분에 착용
             playerNeckPosition = GameObject.Find("Neck Position");
             gameObject.transform.SetParent(playerNeckPosition.transform);
             gameObject.transform.localPosition = new Vector3(0, -0.3f, 0);
             gameObject.transform.localRotation = Quaternion.identity;
+            //구명조끼 물리 기능 제거
             rigid.isKinematic = true;
             rigid.useGravity = false;
             GetComponentInChildren<MeshCollider>().enabled = false;
+            //구명조끼 회전 기능 활성화
             lifeJacketRotate.enabled = true;
+            //레버 기능 활성화
+            lever.OnLever();
         }
         lifeJacketCollider.enabled = false;
     }
