@@ -1,74 +1,60 @@
-using Unity.VisualScripting;
+using System;
+using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class LifeJacket : MonoBehaviour
 {
-    private LifeJacketRotate lifeJacketRotate;
-    private XRGrabInteractable interactable;
-    private Lever lever;
-    private BuckelManager buckelManager; 
-    private Rigidbody rigid;
-    private CapsuleCollider lifeJacketCollider;
+    private MeshFilter meshFilter;
+    private MeshRenderer meshRenderer;
 
-    private GameObject playerNeckPosition;
-    bool isPosition;
+    private float minSize;
+    private float maxSize;
+    private float requiredTime;
+    private float leverLength;
+
+    [HideInInspector]
+    public UnityEvent UseJacket;
+    float currentValue;
 
     private void Awake()
     {
-        lifeJacketRotate = GetComponent<LifeJacketRotate>();
-        interactable = GetComponent<XRGrabInteractable>();
-        lever = GetComponentInChildren<Lever>();
-        rigid = GetComponent<Rigidbody>();
-        lifeJacketCollider = GetComponentInChildren<CapsuleCollider>();
+        meshFilter = GetComponent<MeshFilter>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
-    private void Start()
+    public void Init(Mesh lifeJacketMesh, Material lifeJacketMaterial, LifeJacketData data)
     {
-        lifeJacketRotate.enabled = false;
-        isPosition = false;
-        lifeJacketCollider.enabled = false;
-        interactable.selectEntered.AddListener(OnSelectEntered);
-        interactable.selectExited.AddListener(OnSelectExited);
+        meshFilter.mesh = lifeJacketMesh;
+        meshRenderer.material = lifeJacketMaterial;
+
+        minSize = data.minSize;
+        maxSize = data.maxSize;
+        requiredTime = data.requiredTime;
+
+        transform.localScale = new Vector3(maxSize, minSize, maxSize);
     }
-    private void OnSelectEntered(SelectEnterEventArgs args)
+    public void WearLifeJacket(Mesh lifeJacketMesh, Material lifeJacketMaterial)
     {
-        lifeJacketCollider.enabled = true;
+        meshFilter.mesh = lifeJacketMesh;
+        meshRenderer.material = lifeJacketMaterial;
     }
-    private void OnSelectExited(SelectExitEventArgs args)
+    private void OnUse()
     {
-        if (isPosition) 
+        StartCoroutine("UseCoroutine");
+    }
+    IEnumerator UseCoroutine()
+    {
+        float elaposedTime = 0f;
+
+        while(elaposedTime < requiredTime)
         {
-            //목 부분에 착용
-            playerNeckPosition = GameObject.Find("Neck Position");
-            gameObject.transform.SetParent(playerNeckPosition.transform);
-            gameObject.transform.localPosition = new Vector3(0, -0.3f, 0);
-            gameObject.transform.localRotation = Quaternion.identity;
-            //구명조끼 물리 기능 제거
-            rigid.isKinematic = true;
-            rigid.useGravity = false;
-            GetComponentInChildren<MeshCollider>().enabled = false;
-            //구명조끼 회전 기능 활성화
-            lifeJacketRotate.enabled = true;
-            //레버 기능 활성화
-            lever.OnLever();
-        }
-        lifeJacketCollider.enabled = false;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("JacketPosition"))
-        {
-            Debug.Log("목에 접촉");
-            isPosition = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("JacketPosition"))
-        {
-            Debug.Log("목에서 벗어남");
-            isPosition = false;
+            currentValue = Mathf.Lerp(minSize, maxSize, elaposedTime / requiredTime);
+            transform.localScale = new Vector3(maxSize, currentValue, maxSize);
+            elaposedTime += Time.deltaTime;
+            yield return null;
         }
     }
 }
