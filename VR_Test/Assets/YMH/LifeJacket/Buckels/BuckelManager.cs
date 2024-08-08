@@ -44,6 +44,9 @@ namespace LifeJacket.Buckel
         {
             gameObject.SetActive(true);
 
+            buckels[0].SetTransform(buckelStartPosition[0], buckelStartRotation[0]);
+            buckels[1].SetTransform(buckelStartPosition[1], buckelStartRotation[1]);
+
             buckels[0].CreateString();
             buckels[1].CreateString();
         }
@@ -70,6 +73,7 @@ namespace LifeJacket.Buckel
                 {
                     var interactor = interactables[i].firstInteractorSelecting;
                     interactables[i].interactionManager.SelectExit(interactor, interactables[i]);
+                    interactables[i].enabled = false;
 
                     buckels[i].OnFasten();
                 }

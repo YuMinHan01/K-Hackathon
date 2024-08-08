@@ -28,6 +28,11 @@ namespace LifeJacket.Buckel
         {
             isSelect = false;
         }
+        public void SetTransform(Vector3 buckelPosition, Vector3 buckelRotation)
+        {
+            transform.localPosition = buckelPosition;
+            transform.rotation = Quaternion.Euler(buckelRotation);
+        }
         public void CreateString()
         {
             Vector3[] linePoints = new Vector3[2];
@@ -56,6 +61,7 @@ namespace LifeJacket.Buckel
         {
             if (collision.collider.CompareTag("Buckel"))
             {
+                Debug.Log("collision");
                 collision.collider.GetComponentInParent<BuckelManager>().WearBuckel();
             }
         }
@@ -63,6 +69,7 @@ namespace LifeJacket.Buckel
         {
             if (other.CompareTag("Buckel"))
             {
+                Debug.Log("collider");
                 other.GetComponentInParent<BuckelManager>().WearBuckel();
             }
         }

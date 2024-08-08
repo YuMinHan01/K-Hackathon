@@ -6,9 +6,9 @@ namespace LifeJacket.Lever
     {
         private LineRenderer lineRenderer;
         private float leverLength;
+        [HideInInspector]
         public bool isSelect = false;
         private bool isUsed = false;
-        [SerializeField]
         private Transform startPoint, endPoint;
 
         private void Awake()
