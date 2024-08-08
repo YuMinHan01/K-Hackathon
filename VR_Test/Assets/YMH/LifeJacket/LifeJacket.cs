@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -24,6 +23,8 @@ public class LifeJacket : MonoBehaviour
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
+
+        UseJacket.AddListener(OnUse);
     }
     public void Init(Mesh lifeJacketMesh, Material lifeJacketMaterial, LifeJacketData data)
     {

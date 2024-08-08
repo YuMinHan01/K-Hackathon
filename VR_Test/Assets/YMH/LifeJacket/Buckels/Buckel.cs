@@ -9,8 +9,7 @@ public class Buckel : MonoBehaviour
     private LineRenderer lineRenderer;
     [SerializeField]
     private Transform startPoint ,endPoint;
-   
-
+  
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();

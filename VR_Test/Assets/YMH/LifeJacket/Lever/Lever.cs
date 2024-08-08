@@ -36,6 +36,7 @@ public class Lever : MonoBehaviour
             float length = Vector3.Distance(linePoints[0], linePoints[1]);
             if (length >= leverLength && !isUsed)
             {
+                Debug.Log("구명조끼 사용");
                 GetComponentInParent<LeverManager>().UseLever();
                 isUsed = true;
             }

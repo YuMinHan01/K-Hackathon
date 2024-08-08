@@ -20,11 +20,9 @@ public class BuckelManager : MonoBehaviour
 
         interactables[0].selectEntered.AddListener(OnSelectEntered);
         interactables[1].selectEntered.AddListener(OnSelectEntered);
+        interactables[0].
         interactables[0].selectExited.AddListener(OnSelectExited);
         interactables[1].selectExited.AddListener(OnSelectExited);
-
-        buckels[0].CreateString();
-        buckels[1].CreateString();
     }
     public void Init()
     {
@@ -33,17 +31,20 @@ public class BuckelManager : MonoBehaviour
     public void OnBuckel()
     {
         gameObject.SetActive(true);
+
+        buckels[0].CreateString();
+        buckels[1].CreateString();
     }
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
         int buckelNum = args.interactableObject.transform.GetComponentInParent<BuckelData>().buckelNum;
-        args.interactorObject.transform.GetComponent<Rigidbody>().isKinematic = false;
+        args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = false;
         buckels[buckelNum - 1].OnSelectEntered();
     }
     private void OnSelectExited(SelectExitEventArgs args)
     {
         int buckelNum = args.interactableObject.transform.GetComponentInParent<BuckelData>().buckelNum;
-        args.interactorObject.transform.GetComponent<Rigidbody>().isKinematic = true;
+        args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = true;
         buckels[buckelNum - 1].OnSelectExited();
     }
 }

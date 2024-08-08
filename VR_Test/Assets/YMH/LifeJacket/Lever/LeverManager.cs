@@ -22,9 +22,6 @@ public class LeverManager : MonoBehaviour
         interactables[1].selectEntered.AddListener(OnSelectEntered);
         interactables[0].selectExited.AddListener(OnSelectExited);
         interactables[1].selectExited.AddListener(OnSelectExited);
-
-        lever[0].CreateString();
-        lever[1].CreateString();
     }
     public void Init(float leverLength)
     {
@@ -34,25 +31,27 @@ public class LeverManager : MonoBehaviour
     public void OnLever()
     {
         gameObject.SetActive(true);
+
+        lever[0].CreateString();
+        lever[1].CreateString();
     }
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
-        int leverNum = args.interactableObject.transform.GetComponentInParent<LeverData>().leverNum;
-        args.interactorObject.transform.GetComponent<Rigidbody>().isKinematic = false;
+        int leverNum = args.interactableObject.transform.GetComponent<LeverData>().leverNum;
+        args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = false;
         lever[leverNum - 1].OnSelectEntered(leverLength);
         isSelect[leverNum - 1] = true;
     }
     private void OnSelectExited(SelectExitEventArgs args)
     {
-        int leverNum = args.interactableObject.transform.GetComponentInParent<LeverData>().leverNum;
-        args.interactorObject.transform.GetComponent<Rigidbody>().isKinematic = true;
+        int leverNum = args.interactableObject.transform.GetComponent<LeverData>().leverNum;
+        args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = true;
         lever[leverNum - 1].OnSelectExited();
         isSelect[leverNum - 1] = false;
 
         if(leverState >= 2)
         {
-            lever[0].gameObject.SetActive(false);
-            lever[1].gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
     public void UseLever()
