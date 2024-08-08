@@ -1,76 +1,73 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class LeverManager : MonoBehaviour
+namespace LifeJacket.Lever 
 {
-    private Lever[] lever;
-    private XRGrabInteractable[] interactables;
-    private float leverLength;
-    private bool[] isSelect = { false, false };
-    private int leverState = 0;
+    public class LeverManager : MonoBehaviour
+    {
+        private Lever[] levers;
+        private XRGrabInteractable[] interactables;
+        private float leverLength;
+        private int leverState = 0;
 
-    private void OnEnable()
-    {
-        lever = GetComponentsInChildren<Lever>();
-        interactables = GetComponentsInChildren<XRGrabInteractable>();
-
-        interactables[0].selectEntered.AddListener(OnSelectEntered);
-        interactables[1].selectEntered.AddListener(OnSelectEntered);
-        interactables[0].selectExited.AddListener(OnSelectExited);
-        interactables[1].selectExited.AddListener(OnSelectExited);
-    }
-    public void Init(float leverLength)
-    {
-        this.leverLength = leverLength;
-        gameObject.SetActive(false);
-    }
-    public void OnLever()
-    {
-        gameObject.SetActive(true);
-
-        lever[0].CreateString();
-        lever[1].CreateString();
-    }
-    private void OnSelectEntered(SelectEnterEventArgs args)
-    {
-        int leverNum = args.interactableObject.transform.GetComponent<LeverData>().leverNum;
-        args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = false;
-        lever[leverNum - 1].OnSelectEntered(leverLength);
-        isSelect[leverNum - 1] = true;
-    }
-    private void OnSelectExited(SelectExitEventArgs args)
-    {
-        int leverNum = args.interactableObject.transform.GetComponent<LeverData>().leverNum;
-        args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = true;
-        lever[leverNum - 1].OnSelectExited();
-        isSelect[leverNum - 1] = false;
-
-        if(leverState >= 2)
+        private void OnEnable()
         {
+            levers = GetComponentsInChildren<Lever>();
+            interactables = GetComponentsInChildren<XRGrabInteractable>();
+
+            interactables[0].selectEntered.AddListener(OnSelectEntered);
+            interactables[1].selectEntered.AddListener(OnSelectEntered);
+            interactables[0].selectExited.AddListener(OnSelectExited);
+            interactables[1].selectExited.AddListener(OnSelectExited);
+        }
+        public void Init(float leverLength)
+        {
+            this.leverLength = leverLength;
             gameObject.SetActive(false);
         }
-    }
-    public void UseLever()
-    {
-        leverState += 1;
-        if (leverState < 2)
-            return;
+        public void OnLever()
+        {
+            gameObject.SetActive(true);
 
-        GameObject.Find("LifeJacket").GetComponent<LifeJacket>().UseJacket.Invoke();
-    }
-    private void Update()
-    {
-        if (isSelect[0])
-        {
-            lever[0].CreateString();
+            levers[0].CreateString();
+            levers[1].CreateString();
         }
-        if (isSelect[1])
+        private void OnSelectEntered(SelectEnterEventArgs args)
         {
-            lever[1].CreateString();
+            int leverNum = args.interactableObject.transform.GetComponent<LeverNumber>().leverNum;
+            args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = false;
+            levers[leverNum - 1].OnSelectEntered(leverLength);
+        }
+        private void OnSelectExited(SelectExitEventArgs args)
+        {
+            int leverNum = args.interactableObject.transform.GetComponent<LeverNumber>().leverNum;
+            args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = true;
+            levers[leverNum - 1].OnSelectExited();
+
+            if (leverState >= 2)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        public void UseLever()
+        {
+            leverState += 1;
+            if (leverState < 2)
+                return;
+
+            GameObject.Find("LifeJacket").GetComponent<LifeJacket.Body.LifeJacket>().UseJacket.Invoke();
+        }
+        private void Update()
+        {
+            if (levers[0].isSelect)
+            {
+                levers[0].CreateString();
+            }
+            if (levers[1].isSelect)
+            {
+                levers[1].CreateString();
+            }
         }
     }
 }

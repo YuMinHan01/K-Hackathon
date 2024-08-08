@@ -1,61 +1,61 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Lever : MonoBehaviour
+namespace LifeJacket.Lever
 {
-    private LineRenderer lineRenderer;
-    float leverLength;
-    bool isSelect = false;
-    bool isUsed = false;
-    [SerializeField]
-    private Transform startPoint, endPoint;
+    public class Lever : MonoBehaviour
+    {
+        private LineRenderer lineRenderer;
+        private float leverLength;
+        public bool isSelect = false;
+        private bool isUsed = false;
+        [SerializeField]
+        private Transform startPoint, endPoint;
 
-    private void Awake()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-        startPoint = transform.GetChild(0);
-        endPoint = transform.GetChild(1);
-    }
-    private void OnEnable()
-    {
-        CreateString();
-    }
-    public void CreateString()
-    {
-        Vector3[] linePoints = new Vector3[2];
-
-        linePoints[0] = startPoint.localPosition;
-        if (isSelect)
+        private void Awake()
         {
-            //실시간 선 따라가기
-            linePoints[1] = transform.InverseTransformPoint(endPoint.position);
+            lineRenderer = GetComponent<LineRenderer>();
+            startPoint = transform.GetChild(0);
+            endPoint = transform.GetChild(1);
+        }
+        private void OnEnable()
+        {
+            CreateString();
+        }
+        public void CreateString()
+        {
+            Vector3[] linePoints = new Vector3[2];
 
-            //길이 측정
-            float length = Vector3.Distance(linePoints[0], linePoints[1]);
-            if (length >= leverLength && !isUsed)
+            linePoints[0] = startPoint.localPosition;
+            if (isSelect)
             {
-                Debug.Log("구명조끼 사용");
-                GetComponentInParent<LeverManager>().UseLever();
-                isUsed = true;
-            }
-        }
-        else
-        {
-            linePoints[1] = endPoint.transform.localPosition;
-        }
+                //실시간 선 따라가기
+                linePoints[1] = transform.InverseTransformPoint(endPoint.position);
 
-        lineRenderer.positionCount = linePoints.Length;
-        lineRenderer.SetPositions(linePoints);
-    }
-    public void OnSelectEntered(float leverLength)
-    {
-        this.leverLength = leverLength;
-        isSelect = true;
-    }
-    public void OnSelectExited()
-    {
-        isSelect = false;
+                //길이 측정
+                float length = Vector3.Distance(linePoints[0], linePoints[1]);
+                if (length >= leverLength && !isUsed)
+                {
+                    Debug.Log("구명조끼 사용");
+                    GetComponentInParent<LeverManager>().UseLever();
+                    isUsed = true;
+                }
+            }
+            else
+            {
+                linePoints[1] = endPoint.transform.localPosition;
+            }
+
+            lineRenderer.positionCount = linePoints.Length;
+            lineRenderer.SetPositions(linePoints);
+        }
+        public void OnSelectEntered(float leverLength)
+        {
+            this.leverLength = leverLength;
+            isSelect = true;
+        }
+        public void OnSelectExited()
+        {
+            isSelect = false;
+        }
     }
 }
