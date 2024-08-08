@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace LifeJacket.Buckel 
@@ -57,11 +58,20 @@ namespace LifeJacket.Buckel
             {
                 collision.collider.GetComponentInParent<BuckelManager>().WearBuckel();
             }
-        
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Buckel"))
+            {
+                other.GetComponentInParent<BuckelManager>().WearBuckel();
+            }
         }
         public void OnFasten()
         {
+            GetComponent<BoxCollider>().enabled = false;
 
+            Vector3 newVector3 = new Vector3(0, -0.47f, 0);
+            transform.localPosition = newVector3;
         }
     }
 }
