@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 55daccc09a3b69647bbab145b54a3ab3
+    path: Assets/PJS/Scene/airliner.unity
+    guid: cba0bec32257019409ee33ccb1b973aa
+  - enabled: 1
+    path: Assets/PJS/Scene/Emergency Landing.unity
+    guid: 380b3b0f697ad2b40957b714ee7e5bb3
+  - enabled: 1
+    path: Assets/PJS/Scene/Emergency Water Landing.unity
+    guid: dfff0206926f5154dbd9348a859f1a87
+  - enabled: 1
+    path: Assets/PJS/Scene/Turbulence.unity
+    guid: c4995f9c3de379f4ebed1a3cd22d1c39
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
