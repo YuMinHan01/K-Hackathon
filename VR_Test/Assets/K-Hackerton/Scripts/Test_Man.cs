@@ -110,7 +110,7 @@ public class Test_Man : MonoBehaviour
             yield return null;
         }
         AdjustColliderForSitting(capsuleCollider);
-        Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
+        // Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length);
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         rb.isKinematic = false;
