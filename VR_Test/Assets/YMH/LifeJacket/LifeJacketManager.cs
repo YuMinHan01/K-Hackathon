@@ -18,7 +18,6 @@ namespace LifeJacket
         public Vector3 buckelFastenPosition;
         public Vector3 buckelFastenRotation;
     }
-
     public class LifeJacketManager : MonoBehaviour
     {
         [Header("구명조끼 형태")]

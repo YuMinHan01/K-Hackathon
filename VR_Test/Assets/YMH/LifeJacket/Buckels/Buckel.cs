@@ -4,7 +4,7 @@ using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace LifeJacket.Buckel 
+namespace LifeJacket.Buckel
 {
     public class Buckel : MonoBehaviour
     {

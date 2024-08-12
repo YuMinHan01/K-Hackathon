@@ -64,7 +64,6 @@ namespace LifeJacket.Buckel
         }
         public void WearBuckel()
         {
-            Debug.Log("임시 버클 착용");
             if (buckels[0].isSelect && buckels[1].isSelect)
             {
                 Debug.Log("버클 착용");
