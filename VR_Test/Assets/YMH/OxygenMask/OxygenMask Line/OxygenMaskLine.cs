@@ -41,11 +41,8 @@ namespace OxygenMask.Line
             isSelect = false;
             rigid.isKinematic = true;
         }
-        void Update()
+        private void Update()
         {
-            if (!isSelect)
-                return;
-
             midPoint = CalculateControlPoint(linePoints);
             DrawQuadraticBezierCurve(linePoints[0].position, midPoint, linePoints[2].position);
         }
@@ -57,7 +54,7 @@ namespace OxygenMask.Line
 
             return (2 * point1) - (0.5f * (point0 + point2));
         }
-        void DrawQuadraticBezierCurve(Vector3 point0, Vector3 point1, Vector3 point2)
+        private void DrawQuadraticBezierCurve(Vector3 point0, Vector3 point1, Vector3 point2)
         {
             lineRenderer.positionCount = 200;
             float t = 0f;
@@ -68,6 +65,10 @@ namespace OxygenMask.Line
                 lineRenderer.SetPosition(i, B);
                 t += (1 / (float)lineRenderer.positionCount);
             }
+        }
+        public void DisappearLine()
+        {
+            gameObject.SetActive(false);
         }
     }
 }

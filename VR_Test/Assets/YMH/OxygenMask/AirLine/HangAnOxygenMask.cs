@@ -8,32 +8,37 @@ using UnityEngine;
 public class HangAnOxygenMask : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    [SerializeField]
     private Transform[] points;
+    private bool isCreate = false;
+    private float lineLength;
 
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
+        points = new Transform[2];
         points = GetComponentsInChildren<Transform>();
-
-        CreateLine();
     }
+    public void Init(float lineLength)
+    {
+        this.lineLength = lineLength;
 
-    public void CreateLine()
+        //lineRenderer.
+    }
+    public void StartCreateLine()
+    {
+        isCreate = true;
+    }
+    private void Update()
+    {
+        if (isCreate)
+            CreateLine();
+    }
+    private void CreateLine()
     {
         Vector3[] linePoints = new Vector3[2];
 
         linePoints[0] = points[1].localPosition;
         linePoints[1] = points[2].localPosition;
-        //if (isSelect)
-        //{
-        //    //실시간 선 따라가기
-        //    linePoints[1] = transform.InverseTransformPoint(points[2].position);
-        //}
-        //else
-        //{
-        //    linePoints[1] = points[1].transform.localPosition;
-        //}
 
         lineRenderer.positionCount = linePoints.Length;
         lineRenderer.SetPositions(linePoints);

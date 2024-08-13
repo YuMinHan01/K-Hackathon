@@ -13,15 +13,29 @@ namespace OxygenMask.Wear
     {
         [SerializeField]
         private Type type;
+        private Collider collider;
         [HideInInspector]
-        public bool isWear = false;
+        public bool isSameDifference = false;
 
+        private void Start()
+        {
+            collider = GetComponent<Collider>();
+        }
+        public void OnDrop()
+        {
+            StartCoroutine(Drop());
+        }
+        private IEnumerator Drop()
+        {
+            yield return new WaitForSeconds(0.5F);
+            collider.isTrigger = false;
+        }
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag(type.ToString()))
             {
                 Debug.Log($"{type.ToString()} 何盒 立盟");
-                isWear = true;
+                isSameDifference = true;
             }
         }
         private void OnTriggerExit(Collider other)
@@ -29,7 +43,7 @@ namespace OxygenMask.Wear
             if (other.CompareTag(type.ToString()))
             {
                 Debug.Log($"{type.ToString()} 何盒 立盟 秦力");
-                isWear = false;
+                isSameDifference = false;
             }
         }
     }
