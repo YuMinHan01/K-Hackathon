@@ -8,12 +8,30 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace OxygenMask
 {
+    public struct SpringData
+    {
+        public float springForce;
+        public float springDamper;
+        public float springMass;
+        public float springDistance;
+    }
+
     public class OxygenMaskManager : MonoBehaviour
     {
-        [Header("줄 길이")]
+        SpringData springData;
+        [Header("산소 마스크 기본 설정")]
+        [SerializeField]
+        [Tooltip("산소 마스크 스프링 힘")]
+        private float springForce;
+        [SerializeField]
+        [Tooltip("산소 마스크 스프링 댐퍼")]
+        private float springDamper;
+        [SerializeField]
+        [Tooltip("산소 마스크 스프링 질량")]
+        private float springMass;
         [SerializeField]
         [Tooltip("산소 마스크 떨어질 때 산소 튜브 최대 길이")]
-        private float hangAnDistance;
+        private float springDistance;
 
         private bool isWear = false;
         private OxygenMaskLine lineScript;
@@ -34,7 +52,14 @@ namespace OxygenMask
             rigid = GetComponent<Rigidbody>();
             oxygenMaskGrabInteractable = GetComponent<XRGrabInteractable>();
 
-            hangAnScript.Init(hangAnDistance);
+            springData = new SpringData
+            {
+                springForce = springForce,
+                springDamper = springDamper,
+                springMass = springMass,
+                springDistance = springDistance
+            };
+            hangAnScript.Init(springData);
         }
         private void Update()
         {

@@ -1,4 +1,5 @@
 using LifeJacket.Lever;
+using OxygenMask;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -9,8 +10,11 @@ public class HangAnOxygenMask : MonoBehaviour
 {
     private LineRenderer lineRenderer;
     private Transform[] points;
+    private float springForce;
+    private float springDamper;
+    private float springMass;
+    private float springDistance;
     private bool isCreate = false;
-    private float lineLength;
 
     private void Start()
     {
@@ -18,11 +22,12 @@ public class HangAnOxygenMask : MonoBehaviour
         points = new Transform[2];
         points = GetComponentsInChildren<Transform>();
     }
-    public void Init(float lineLength)
+    public void Init(SpringData springData)
     {
-        this.lineLength = lineLength;
-
-        //lineRenderer.
+        springForce = springData.springForce;
+        springDamper = springData.springDamper;
+        springMass = springData.springMass;
+        springDistance = springData.springDistance;
     }
     public void StartCreateLine()
     {
@@ -31,10 +36,16 @@ public class HangAnOxygenMask : MonoBehaviour
     private void Update()
     {
         if (isCreate)
+        {
             CreateLine();
+
+            float length = Vector3.Distance(points[1].localPosition, points[2].localPosition);
+        }
+        
     }
     private void CreateLine()
     {
+        //줄 그리기
         Vector3[] linePoints = new Vector3[2];
 
         linePoints[0] = points[1].localPosition;
@@ -42,5 +53,7 @@ public class HangAnOxygenMask : MonoBehaviour
 
         lineRenderer.positionCount = linePoints.Length;
         lineRenderer.SetPositions(linePoints);
+
+        
     }
 }
