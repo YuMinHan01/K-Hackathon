@@ -3,32 +3,15 @@ using OxygenMask.Wear;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Attachment;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 namespace OxygenMask
 {
-    public struct SpringData
-    {
-        public float springForce;
-        public float springDamper;
-        public float springMass;
-        public float springDistance;
-    }
-
     public class OxygenMaskManager : MonoBehaviour
     {
-        SpringData springData;
         [Header("산소 마스크 기본 설정")]
-        [SerializeField]
-        [Tooltip("산소 마스크 스프링 힘")]
-        private float springForce;
-        [SerializeField]
-        [Tooltip("산소 마스크 스프링 댐퍼")]
-        private float springDamper;
-        [SerializeField]
-        [Tooltip("산소 마스크 스프링 질량")]
-        private float springMass;
         [SerializeField]
         [Tooltip("산소 마스크 떨어질 때 산소 튜브 최대 길이")]
         private float springDistance;
@@ -37,6 +20,7 @@ namespace OxygenMask
         private OxygenMaskLine lineScript;
         private WearOxygenMask[] wearScripts;
         private HangAnOxygenMask hangAnScript;
+        private OxygenMaskPull pullScript;
         private XRGrabInteractable[] interactables;
 
         private Rigidbody rigid;
@@ -47,19 +31,15 @@ namespace OxygenMask
             lineScript = GetComponentInChildren<OxygenMaskLine>();
             wearScripts = GetComponentsInChildren<WearOxygenMask>();
             hangAnScript = GetComponentInChildren<HangAnOxygenMask>();
+            pullScript = GetComponentInChildren<OxygenMaskPull>();
             interactables = GetComponentsInChildren<XRGrabInteractable>();
 
             rigid = GetComponent<Rigidbody>();
             oxygenMaskGrabInteractable = GetComponent<XRGrabInteractable>();
+            oxygenMaskGrabInteractable.selectEntered.AddListener(OnSelectEntered);
+            oxygenMaskGrabInteractable.selectExited.AddListener(OnSelectExited);
 
-            springData = new SpringData
-            {
-                springForce = springForce,
-                springDamper = springDamper,
-                springMass = springMass,
-                springDistance = springDistance
-            };
-            hangAnScript.Init(springData);
+            hangAnScript.Init(springDistance);
         }
         private void Update()
         {
@@ -67,11 +47,21 @@ namespace OxygenMask
             {
                 OnDrop();
             }
+            if (Input.GetKeyDown(KeyCode.Q))
+                OnWear();
 
             if (wearScripts[0].isSameDifference && wearScripts[1].isSameDifference)
             {
                 OnWear();
             }
+        }
+        private void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            hangAnScript.OnSelectEnterdOxygenMask();
+        }
+        private void OnSelectExited(SelectExitEventArgs args)
+        {
+            hangAnScript.OnSelectExitedOxygenMask();
         }
         private void OnWear()
         {
@@ -85,14 +75,14 @@ namespace OxygenMask
                 }
             }
             //산소 마스크 위치 변경
-            Transform NosePosition = Camera.main.transform.Find("Nose");
+            Transform NosePosition = Camera.main.transform.Find("Nose").transform;
             transform.SetParent(NosePosition);
             transform.localPosition = new Vector3(-0.0015f, -0.03f, 0.04f);
-            transform.rotation = new Quaternion(0, 180, 0, 0);
+            transform.localRotation = new Quaternion(0, 180, 0, 0);
 
-            lineScript.DisappearLine();
-
-            isWear = true;
+            //lineScript.DisappearLine();
+            hangAnScript.OnSelectEnterdOxygenMask();
+            pullScript.OnPull();
         }
         public void OnDrop() 
         {
@@ -105,6 +95,11 @@ namespace OxygenMask
                 wearScript.OnDrop();
             }
             hangAnScript.StartCreateLine();
+        }
+        public void ExitDrop()
+        {
+            rigid.useGravity = false;
+            rigid.isKinematic = true;
         }
     }
 }

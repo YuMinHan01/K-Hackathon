@@ -10,11 +10,9 @@ public class HangAnOxygenMask : MonoBehaviour
 {
     private LineRenderer lineRenderer;
     private Transform[] points;
-    private float springForce;
-    private float springDamper;
-    private float springMass;
     private float springDistance;
     private bool isCreate = false;
+    private bool isSelect = false;
 
     private void Start()
     {
@@ -22,16 +20,21 @@ public class HangAnOxygenMask : MonoBehaviour
         points = new Transform[2];
         points = GetComponentsInChildren<Transform>();
     }
-    public void Init(SpringData springData)
+    public void Init(float springDistance)
     {
-        springForce = springData.springForce;
-        springDamper = springData.springDamper;
-        springMass = springData.springMass;
-        springDistance = springData.springDistance;
+        this.springDistance = springDistance;
     }
     public void StartCreateLine()
     {
         isCreate = true;
+    }
+    public void OnSelectEnterdOxygenMask()
+    {
+       isSelect = true;
+    }
+    public void OnSelectExitedOxygenMask()
+    {
+        isSelect = false;
     }
     private void Update()
     {
@@ -39,9 +42,17 @@ public class HangAnOxygenMask : MonoBehaviour
         {
             CreateLine();
 
-            float length = Vector3.Distance(points[1].localPosition, points[2].localPosition);
+            float length = Vector3.Distance(points[1].position, points[2].position);
+            if (length >= springDistance)
+            {
+                isCreate = false;
+                GetComponentInParent<OxygenMaskManager>().ExitDrop();
+            }
         }
-        
+        else if(isSelect)
+        {
+            CreateLine();
+        }
     }
     private void CreateLine()
     {
@@ -53,7 +64,5 @@ public class HangAnOxygenMask : MonoBehaviour
 
         lineRenderer.positionCount = linePoints.Length;
         lineRenderer.SetPositions(linePoints);
-
-        
     }
 }
