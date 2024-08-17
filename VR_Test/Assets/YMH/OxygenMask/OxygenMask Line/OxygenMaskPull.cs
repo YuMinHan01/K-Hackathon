@@ -6,6 +6,7 @@ public class OxygenMaskPull : MonoBehaviour
 {
     private PullLine[] pullLines;
 
+    bool isaa;
     private void Start()
     {
         pullLines = GetComponentsInChildren<PullLine>();
@@ -14,5 +15,7 @@ public class OxygenMaskPull : MonoBehaviour
     {
         pullLines[0].OnPull();
         pullLines[1].OnPull();
+
+        isaa = !isaa;
     }
 }

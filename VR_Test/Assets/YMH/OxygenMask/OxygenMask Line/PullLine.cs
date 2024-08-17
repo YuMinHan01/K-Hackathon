@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -7,28 +9,38 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class PullLine : MonoBehaviour
 {
-    [SerializeField]
     private Transform[] points;
     private LineRenderer lineRenderer;
     private XRGrabInteractable pullObject;
+    private Rigidbody rigid;
+    private bool isSelect = false;
 
     private void Start()
     {
         points = GetComponentsInChildren<Transform>();
-        points[1].gameObject.SetActive(false);
         lineRenderer = GetComponent<LineRenderer>();
         pullObject = GetComponentInChildren<XRGrabInteractable>();
+        rigid = GetComponentInChildren<Rigidbody>();
 
         pullObject.selectEntered.AddListener(OnSelectEntered);
         pullObject.selectExited.AddListener(OnSelectExited);
+
+        points[1].gameObject.SetActive(false);
+    }
+    private void Update()
+    {
+        if (isSelect)
+            DrawLine();
     }
     private void OnSelectEntered(SelectEnterEventArgs args)
     {
-        
+        rigid.isKinematic = false;
+        isSelect = true;
     }
     private void OnSelectExited(SelectExitEventArgs args)
     {
-
+        rigid.isKinematic = true;
+        isSelect = false;
     }
     public void OnPull()
     {
@@ -39,7 +51,15 @@ public class PullLine : MonoBehaviour
     }
     private void DrawLine()
     {
-        lineRenderer.SetPosition(0, Vector3.zero);
-        lineRenderer.SetPosition(1, points[1].localPosition);
+        Vector3[] linePoints = new Vector3[2];
+
+        linePoints[0] = Vector3.zero;
+        if (isSelect)
+            linePoints[1] = transform.InverseTransformPoint(points[1].position);
+        else
+            linePoints[1] = points[0].localPosition;
+
+        lineRenderer.positionCount = linePoints.Length;
+        lineRenderer.SetPositions(linePoints);
     }
 }
