@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class Exit : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class Exit : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Keyboard.current.pKey.wasPressedThisFrame)
         {
             StartCoroutine(AgentMove());
         }

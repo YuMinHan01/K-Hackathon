@@ -119,7 +119,7 @@ namespace LifeJacket
             {
                 //목 부분에 착용
                 interactable.enabled = false;
-                playerNeckPosition = GameObject.Find("Neck Position");
+                playerNeckPosition = GameObject.Find("Neck");
                 gameObject.transform.SetParent(playerNeckPosition.transform);
                 gameObject.transform.localPosition = new Vector3(0, -0.3f, 0);
                 gameObject.transform.localRotation = Quaternion.identity;

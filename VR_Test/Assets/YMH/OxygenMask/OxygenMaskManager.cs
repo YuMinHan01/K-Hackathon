@@ -3,6 +3,7 @@ using OxygenMask.Wear;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Attachment;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -15,6 +16,15 @@ namespace OxygenMask
         [SerializeField]
         [Tooltip("산소 마스크 떨어질 때 산소 튜브 최대 길이")]
         private float springDistance;
+        [SerializeField]
+        [Tooltip("산소 마스크 쪼이는 줄 길이")]
+        private float pullDistance;
+        [SerializeField]
+        [Tooltip("산소 마스크 커지기 전 크기")]
+        private float beforePullSize;
+        [SerializeField]
+        [Tooltip("산소 마스크 커지기 후 크기")]
+        private float afterPullSize;
 
         private bool isWear = false;
         private OxygenMaskLine lineScript;
@@ -40,14 +50,15 @@ namespace OxygenMask
             oxygenMaskGrabInteractable.selectExited.AddListener(OnSelectExited);
 
             hangAnScript.Init(springDistance);
+            pullScript.Init(pullDistance, beforePullSize, afterPullSize);
         }
         private void Update()
         {
-            if (Input.GetButtonDown("Jump"))
+            if (Keyboard.current.lKey.wasPressedThisFrame)
             {
                 OnDrop();
             }
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Keyboard.current.pKey.wasPressedThisFrame)
                 OnWear();
 
             if (wearScripts[0].isSameDifference && wearScripts[1].isSameDifference)

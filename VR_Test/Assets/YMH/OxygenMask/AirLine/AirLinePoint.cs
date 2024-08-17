@@ -9,7 +9,7 @@ public class AirLinePoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        point = new Vector3(0, 2.1f, 0);
+        point = transform.position;
     }
 
     // Update is called once per frame

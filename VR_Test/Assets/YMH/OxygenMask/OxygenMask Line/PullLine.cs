@@ -13,7 +13,11 @@ public class PullLine : MonoBehaviour
     private LineRenderer lineRenderer;
     private XRGrabInteractable pullObject;
     private Rigidbody rigid;
+    
     private bool isSelect = false;
+    private float pullDistance;
+    private float beforePullSize;
+    private float afterPullSize;
 
     private void Start()
     {
@@ -26,6 +30,12 @@ public class PullLine : MonoBehaviour
         pullObject.selectExited.AddListener(OnSelectExited);
 
         points[1].gameObject.SetActive(false);
+    }
+    public void Init(float pullDistance, float beforePullSize, float afterPullSize)
+    {
+        this.pullDistance = pullDistance;
+        this.beforePullSize = beforePullSize;
+        this.afterPullSize = afterPullSize;
     }
     private void Update()
     {
@@ -55,9 +65,16 @@ public class PullLine : MonoBehaviour
 
         linePoints[0] = Vector3.zero;
         if (isSelect)
+        {
             linePoints[1] = transform.InverseTransformPoint(points[1].position);
+
+            //당기면 부풀는 기능
+            //if()
+        }
         else
-            linePoints[1] = points[0].localPosition;
+        {
+            linePoints[1] = points[1].localPosition;
+        }
 
         lineRenderer.positionCount = linePoints.Length;
         lineRenderer.SetPositions(linePoints);
