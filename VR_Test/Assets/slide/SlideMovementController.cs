@@ -3,6 +3,7 @@ using UnityEngine;
 public class SlideMovementController : MonoBehaviour
 {
     public GameObject handle;          // 손잡이 오브젝트
+    public GameObject handle_Point;
     public GameObject slidePoint;      // 슬라이드 포인트 (슬라이드의 시작 위치)
     public GameObject rope;            // Rope 오브젝트
     public GameObject airliner;        // Airliner 오브젝트 (이 오브젝트가 움직임)
@@ -24,7 +25,7 @@ public class SlideMovementController : MonoBehaviour
         else
         {
             // Handle과 SlidePoint 간의 거리를 계산
-            float distance = Vector3.Distance(handle.transform.position, slidePoint.transform.position);
+            float distance = Vector3.Distance(handle_Point.transform.position, slidePoint.transform.position);
 
             // 거리가 설정된 triggerDistance 이상이면 로프와 핸들을 파괴하고 Airliner 이동 시작
             if (distance >= triggerDistance)
