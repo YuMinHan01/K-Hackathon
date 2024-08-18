@@ -65,6 +65,8 @@ namespace OxygenMask
             }
             if (Keyboard.current.pKey.wasPressedThisFrame)
                 OnWear();
+            if (Keyboard.current.oKey.wasPressedThisFrame)
+                CanTackOff();
 
             if (wearScripts[0].isSameDifference && wearScripts[1].isSameDifference)
             {
@@ -79,7 +81,7 @@ namespace OxygenMask
         private void OnSelectExited(SelectExitEventArgs args)
         {
             hangAnScript.OnSelectExitedOxygenMask();
-            nearFarInteractors[index].interactionLayers = InteractionLayerMask.GetMask("Default");
+            //nearFarInteractors[index].interactionLayers = InteractionLayerMask.GetMask("Default");
         }
         private void CheckControllerDir(SelectEnterEventArgs args)
         {
@@ -94,7 +96,7 @@ namespace OxygenMask
                     index = 0;
                     break;
             }
-            nearFarInteractors[index].interactionLayers = InteractionLayerMask.GetMask("Pull");
+            //nearFarInteractors[index].interactionLayers = InteractionLayerMask.GetMask("Pull");
         }
         private void OnWear()
         {
