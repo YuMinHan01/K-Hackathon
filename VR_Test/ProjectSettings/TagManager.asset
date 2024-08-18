@@ -46,3 +46,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: FadeIn-FadeOut
+    uniqueID: 597264191
+    locked: 0
+  - name: CanvasUI
+    uniqueID: 3042305905
+    locked: 0
