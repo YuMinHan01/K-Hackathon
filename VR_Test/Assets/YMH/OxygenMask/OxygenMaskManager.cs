@@ -1,5 +1,6 @@
 using OxygenMask.Line;
 using OxygenMask.Wear;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Attachment;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace OxygenMask
 {
@@ -32,9 +34,11 @@ namespace OxygenMask
         private HangAnOxygenMask hangAnScript;
         private OxygenMaskPull pullScript;
         private XRGrabInteractable[] interactables;
+        private NearFarInteractor[] nearFarInteractors;
 
         private Rigidbody rigid;
         private XRGrabInteractable oxygenMaskGrabInteractable;
+        private int index;
 
         private void Start()
         {
@@ -43,6 +47,7 @@ namespace OxygenMask
             hangAnScript = GetComponentInChildren<HangAnOxygenMask>();
             pullScript = GetComponentInChildren<OxygenMaskPull>();
             interactables = GetComponentsInChildren<XRGrabInteractable>();
+            nearFarInteractors = GameObject.Find("XR Origin (XR Rig)").GetComponentsInChildren<NearFarInteractor>();
 
             rigid = GetComponent<Rigidbody>();
             oxygenMaskGrabInteractable = GetComponent<XRGrabInteractable>();
@@ -69,10 +74,27 @@ namespace OxygenMask
         private void OnSelectEntered(SelectEnterEventArgs args)
         {
             hangAnScript.OnSelectEnterdOxygenMask();
+            CheckControllerDir(args);
         }
         private void OnSelectExited(SelectExitEventArgs args)
         {
             hangAnScript.OnSelectExitedOxygenMask();
+            nearFarInteractors[index].interactionLayers = InteractionLayerMask.GetMask("Default");
+        }
+        private void CheckControllerDir(SelectEnterEventArgs args)
+        {
+            Debug.Log(args.interactorObject.handedness);
+            index = 0;
+            switch (args.interactorObject.handedness.ToString())
+            {
+                case "Left":
+                    index = 1;
+                    break;
+                case "Right":
+                    index = 0;
+                    break;
+            }
+            nearFarInteractors[index].interactionLayers = InteractionLayerMask.GetMask("Pull");
         }
         private void OnWear()
         {
@@ -92,10 +114,11 @@ namespace OxygenMask
             transform.localRotation = new Quaternion(0, 180, 0, 0);
 
             //lineScript.DisappearLine();
+            oxygenMaskGrabInteractable.enabled = false;
             hangAnScript.OnSelectEnterdOxygenMask();
             pullScript.OnPull();
         }
-        public void OnDrop() 
+        private void OnDrop() 
         {
             rigid.useGravity = true;
             rigid.isKinematic = false;
@@ -111,6 +134,10 @@ namespace OxygenMask
         {
             rigid.useGravity = false;
             rigid.isKinematic = true;
+        }
+        public void CanTackOff()
+        {
+            oxygenMaskGrabInteractable.enabled = true;
         }
     }
 }
