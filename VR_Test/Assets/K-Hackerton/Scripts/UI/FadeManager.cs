@@ -63,6 +63,6 @@ public class FadeManager : MonoBehaviour
         }
         // Scene ÀüÈ¯ ÈÄ Fade In
         yield return SceneManager.LoadSceneAsync(sceneName);
-        StartCoroutine(FadeInOnly());
+        StartCoroutine(FadeIn());
     }
 }
