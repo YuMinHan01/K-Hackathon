@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class SlideMovementController : MonoBehaviour
 {
-    public GameObject handle;          // ¼ÕÀâÀÌ ¿ÀºêÁ§Æ®
+    public GameObject handle;          // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public GameObject handle_Point;
-    public GameObject slidePoint;      // ½½¶óÀÌµå Æ÷ÀÎÆ® (½½¶óÀÌµåÀÇ ½ÃÀÛ À§Ä¡)
-    public GameObject rope;            // Rope ¿ÀºêÁ§Æ®
-    public GameObject airliner;        // Airliner ¿ÀºêÁ§Æ® (ÀÌ ¿ÀºêÁ§Æ®°¡ ¿òÁ÷ÀÓ)
-    public GameObject openDoorTail;    // Open_door_tail ¿ÀºêÁ§Æ® (ºÐ¸®µÉ ¿ÀºêÁ§Æ®)
+    public GameObject slidePoint;      // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½Æ® (ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡)
+    public GameObject rope;            // Rope ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public GameObject airliner;        // Airliner ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® (ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    public GameObject openDoorTail;    // Open_door_tail ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® (ï¿½Ð¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®)
 
-    public float triggerDistance = 1.0f;  // ÀÏÁ¤ °Å¸®¸¦ public º¯¼ö·Î ¼³Á¤
-    public float slideSpeed = 1.0f;       // ½½¶óÀÌµåÀÇ ÀÌµ¿ ¼Óµµ
-    public float xIncrement = 0.1f;       // XÃàÀ¸·Î ÀÌµ¿ÇÏ´Â Áõ°¡·®
-    public float zIncrement = 0.1f;       // ZÃàÀ¸·Î ÀÌµ¿ÇÏ´Â Áõ°¡·®
+    public float triggerDistance = 1.0f;  // ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ public ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float slideSpeed = 1.0f;       // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Óµï¿½
+    public float xIncrement = 0.1f;       // Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float zIncrement = 0.1f;       // Zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    private bool slideActivated = false;  // ½½¶óÀÌµå°¡ ÀÌ¹Ì È°¼ºÈ­µÇ¾ú´ÂÁö È®ÀÎÇÏ´Â ÇÃ·¡±×
+    private bool slideActivated = false;  // ï¿½ï¿½ï¿½ï¿½ï¿½Ìµå°¡ ï¿½Ì¹ï¿½ È°ï¿½ï¿½È­ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½
 
     void Update()
     {
@@ -24,10 +24,10 @@ public class SlideMovementController : MonoBehaviour
         }
         else
         {
-            // Handle°ú SlidePoint °£ÀÇ °Å¸®¸¦ °è»ê
+            // Handleï¿½ï¿½ SlidePoint ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             float distance = Vector3.Distance(handle_Point.transform.position, slidePoint.transform.position);
 
-            // °Å¸®°¡ ¼³Á¤µÈ triggerDistance ÀÌ»óÀÌ¸é ·ÎÇÁ¿Í ÇÚµéÀ» ÆÄ±«ÇÏ°í Airliner ÀÌµ¿ ½ÃÀÛ
+            // ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ triggerDistance ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½Ï°ï¿½ Airliner ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
             if (distance >= triggerDistance)
             {
                 ActivateSlide();
@@ -37,27 +37,27 @@ public class SlideMovementController : MonoBehaviour
 
     private void ActivateSlide()
     {
-        // Rope¿Í Handle ¿ÀºêÁ§Æ®¸¦ ÆÄ±«
+        // Ropeï¿½ï¿½ Handle ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ä±ï¿½
         Destroy(rope);
         Destroy(handle);
 
-        // Open_door_tail ¿ÀºêÁ§Æ®¸¦ Airliner¿¡¼­ ºÐ¸®
+        // Open_door_tail ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Airlinerï¿½ï¿½ï¿½ï¿½ ï¿½Ð¸ï¿½
         openDoorTail.transform.parent = null;
 
-        // Airliner ÀÌµ¿À» È°¼ºÈ­
+        // Airliner ï¿½Ìµï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         slideActivated = true;
     }
 
     private void MoveAirliner()
     {
-        // AirlinerÀÇ ÇöÀç À§Ä¡¸¦ °¡Á®¿Í¼­ ÀÌµ¿½ÃÅ´
+        // Airlinerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½Ìµï¿½ï¿½ï¿½Å´
         Vector3 newPosition = airliner.transform.position;
 
-        // XÃà°ú ZÃà ¹æÇâÀ¸·Î ÀÌµ¿·®À» ´õÇÔ
+        // Xï¿½ï¿½ï¿½ Zï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         newPosition.x += xIncrement * slideSpeed * Time.deltaTime;
         newPosition.z += zIncrement * slideSpeed * Time.deltaTime;
 
-        // »õ·Î¿î À§Ä¡·Î Airliner¸¦ ÀÌµ¿
+        // ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ Airlinerï¿½ï¿½ ï¿½Ìµï¿½
         airliner.transform.position = newPosition;
     }
 }
