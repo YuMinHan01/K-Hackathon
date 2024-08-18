@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PJS/Scene/Turbulence.unity
     guid: c4995f9c3de379f4ebed1a3cd22d1c39
+  - enabled: 1
+    path: Assets/K-Hackerton/Scene/StartScene.unity
+    guid: 7dc398febfb58e241a19f4783cdbe25d
+  - enabled: 1
+    path: Assets/K-Hackerton/Scene/Hackathon_HYM.unity
+    guid: d7ea34df26fab52449303a627371db75
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: dc5a169419fa04987b057f65238cf3ba, type: 2}
