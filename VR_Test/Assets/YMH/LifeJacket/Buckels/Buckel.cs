@@ -57,28 +57,12 @@ namespace LifeJacket.Buckel
                 CreateString();
             }
         }
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.collider.CompareTag("Buckel"))
-            {
-                Debug.Log("collision");
-                collision.collider.GetComponentInParent<BuckelManager>().WearBuckel();
-            }
-        }
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Buckel"))
-            {
-                Debug.Log("collider");
-                other.GetComponentInParent<BuckelManager>().WearBuckel();
-            }
-        }
         public void OnFasten()
         {
-            GetComponent<BoxCollider>().enabled = false;
+            GetComponentInChildren<BoxCollider>().enabled = false;
 
             Vector3 newVector3 = new Vector3(0, -0.47f, 0);
-            transform.localPosition = newVector3;
+            endPoint.localPosition = newVector3;
         }
     }
 }

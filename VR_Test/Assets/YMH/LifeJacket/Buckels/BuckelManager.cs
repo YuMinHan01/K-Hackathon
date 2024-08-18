@@ -64,10 +64,8 @@ namespace LifeJacket.Buckel
         }
         public void WearBuckel()
         {
-            if (buckels[0].isSelect && buckels[1].isSelect)
-            {
-                Debug.Log("¹öÅ¬ Âø¿ë");
-
+            //if (buckels[0].isSelect && buckels[1].isSelect)
+            //{
                 for(int i = 0; i < 2; i++)
                 {
                     var interactor = interactables[i].firstInteractorSelecting;
@@ -76,7 +74,7 @@ namespace LifeJacket.Buckel
 
                     buckels[i].OnFasten();
                 }
-            }
+            //}
         }
     }
 }

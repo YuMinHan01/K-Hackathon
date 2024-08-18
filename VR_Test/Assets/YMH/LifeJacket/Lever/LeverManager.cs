@@ -10,6 +10,7 @@ namespace LifeJacket.Lever
         private XRGrabInteractable[] interactables;
         private float leverLength;
         private int leverState = 0;
+        private bool isActive = false;
 
         private void OnEnable()
         {
@@ -44,11 +45,6 @@ namespace LifeJacket.Lever
             int leverNum = args.interactableObject.transform.GetComponent<LeverNumber>().leverNum;
             args.interactableObject.transform.GetComponent<Rigidbody>().isKinematic = true;
             levers[leverNum - 1].OnSelectExited();
-
-            if (leverState >= 2)
-            {
-                gameObject.SetActive(false);
-            }
         }
         public void UseLever()
         {
@@ -57,6 +53,7 @@ namespace LifeJacket.Lever
                 return;
 
             GameObject.Find("LifeJacket").GetComponent<LifeJacket.Body.LifeJacket>().UseJacket.Invoke();
+            isActive = true;
         }
         private void Update()
         {
@@ -68,6 +65,9 @@ namespace LifeJacket.Lever
             {
                 levers[1].CreateString();
             }
+
+            if (isActive && !levers[0].isSelect && !levers[1].isSelect)
+                gameObject.SetActive(false);
         }
     }
 }

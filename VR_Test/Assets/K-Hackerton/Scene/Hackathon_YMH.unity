@@ -131,6 +131,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1835860546604760863, guid: 0f81fb1190662934c8c6b39e21967011, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2303708524869612285, guid: 0f81fb1190662934c8c6b39e21967011, type: 3}
+      propertyPath: m_ThrowOnDetach
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3364625438273699659, guid: 0f81fb1190662934c8c6b39e21967011, type: 3}
       propertyPath: m_Name
       value: Life Jacket
@@ -178,6 +186,10 @@ PrefabInstance:
     - target: {fileID: 5527123568350229004, guid: 0f81fb1190662934c8c6b39e21967011, type: 3}
       propertyPath: m_IsTrigger
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6084392418670498753, guid: 0f81fb1190662934c8c6b39e21967011, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 6862619012994442922, guid: 0f81fb1190662934c8c6b39e21967011, type: 3}
       propertyPath: m_UseGravity
@@ -3783,6 +3795,10 @@ PrefabInstance:
       propertyPath: m_EnableFarCasting
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4808866746549998793, guid: b200f6587d118224eba8467281481800, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4916,6 +4932,18 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.555
       objectReference: {fileID: 0}
@@ -4955,6 +4983,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5537949113069778371, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
@@ -4963,9 +4995,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.00032
       objectReference: {fileID: 0}
+    - target: {fileID: 6139896761247353862, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601410773270046208, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 1073741825
+      objectReference: {fileID: 0}
     - target: {fileID: 7060175317675966004, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_Name
       value: OxygenMask
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986194955168212323, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8108788229764254578, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: pullDistance
