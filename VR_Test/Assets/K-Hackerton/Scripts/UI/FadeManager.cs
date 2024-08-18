@@ -9,6 +9,8 @@ public class FadeManager : MonoBehaviour
     public float fadeDuration = 1f; // Fade 효과의 지속 시간
     public Canvas fadeCanvas; // Fade 효과를 위한 Canvas
 
+
+
     private void Awake()
     {
         // fadeCanvas를 MainCamera의 자식으로 설정
@@ -59,7 +61,6 @@ public class FadeManager : MonoBehaviour
             fadeImage.color = new Color(0f, 0f, 0f, alpha);
             yield return null;
         }
-
         // Scene 전환 후 Fade In
         yield return SceneManager.LoadSceneAsync(sceneName);
         StartCoroutine(FadeInOnly());
