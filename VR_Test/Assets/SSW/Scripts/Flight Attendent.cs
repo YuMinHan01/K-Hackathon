@@ -14,6 +14,9 @@ public class FlightAttendent : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
+
+    private bool exit;
+    private bool escape;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,8 @@ public class FlightAttendent : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        exit = false;
+        escape = false;
     }
     private void OnCollisionEnter(Collision other) {
         agent.speed = 0;
@@ -30,12 +35,12 @@ public class FlightAttendent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Keyboard.current.zKey.wasPressedThisFrame)
+        if(exit)
         {
             StartCoroutine(AgentMove());
         }
 
-        if(Keyboard.current.xKey.wasPressedThisFrame)
+        if(escape)
         {
             StartCoroutine(Escape());
         }
@@ -46,10 +51,19 @@ public class FlightAttendent : MonoBehaviour
     //     speed = agent.velocity.magnitude;
     // }
 
+    public void Exit()
+    {
+        exit = true;
+    }
+    public void EscapeAll()
+    {
+        escape = true;
+    }
     IEnumerator AgentMove()
     {
         Debug.Log("Exit");
         animator.SetTrigger("Exit");
+        exit = false;
         yield return null;
     }
     
@@ -58,6 +72,7 @@ public class FlightAttendent : MonoBehaviour
         Debug.Log("Escape");
         animator.SetTrigger("Escape");
         agent.SetDestination(destination.position);
+        escape = false;
         yield return null;
     }
 }

@@ -21,6 +21,8 @@ public class NPC : MonoBehaviour
     private Animator animator;
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
+
+    private bool runningNPC;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class NPC : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         _state = State.Sitting_Idle;
+        runningNPC = false;
     }
 
     private void OnTriggerStay(Collider other) {
@@ -37,10 +40,16 @@ public class NPC : MonoBehaviour
         _state = State.Slide_Sitting;
     }
 
+    public void Running()
+    {
+        runningNPC = true;
+        Debug.Log("running");
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(Keyboard.current.zKey.wasPressedThisFrame && _state == State.Sitting_Idle)
+        if(runningNPC && _state == State.Sitting_Idle)
         {
             StartCoroutine(AgentMove());
         }
@@ -57,6 +66,7 @@ public class NPC : MonoBehaviour
         animator.SetTrigger("Exit");
         agent.SetDestination(destination.position);
         _state = State.Running;
+        runningNPC = false;
         yield return null;
     }
 }

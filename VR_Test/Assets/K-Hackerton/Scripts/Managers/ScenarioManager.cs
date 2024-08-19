@@ -1,6 +1,7 @@
 using OxygenMask;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,6 +14,11 @@ public class ScenarioManager : MonoBehaviour
     GameObject landingUI;
     GameObject water;
     FadeManager fadeManager;
+    GameObject runningNPC;
+    GameObject flightAttendent;
+    FlightAttendent flightAttendentScripts;
+
+    NPC[] runningNPCScripts;
 
     private void Awake()
     {
@@ -22,6 +28,10 @@ public class ScenarioManager : MonoBehaviour
         landingUI = GameObject.Find("Landing UI");
         water = GameObject.Find("Water");
         fadeManager = GameObject.Find("FadeIn_FadeOut").GetComponent<FadeManager>();
+        runningNPC = GameObject.Find("Running NPC");
+        runningNPCScripts = runningNPC.GetComponentsInChildren<NPC>();
+        flightAttendent = GameObject.Find("Flight Attendent");
+        flightAttendentScripts = GameObject.Find("Flight Attendent").GetComponent<FlightAttendent>();
     }
     void Start()
     {
@@ -33,13 +43,15 @@ public class ScenarioManager : MonoBehaviour
         oxygenMaskUI.SetActive(false);
         landingUI.SetActive(false);
         water.SetActive(false);
+        runningNPC.SetActive(false);
+        flightAttendent.SetActive(false);
     }
 
     private void Update()
     {
         if (Keyboard.current.numpad1Key.wasPressedThisFrame)
         { 
-            soundManager.PlaySFXWithDoubleDelay("ÀÌ·ú", "¿£ÁøÅÍÁö´Â¼Ò¸®", 1f, "TTS_1", 2f);
+            soundManager.PlaySFXWithDoubleDelay("ì´ë¥™", "ì—”ì§„í„°ì§€ëŠ”ì†Œë¦¬", 1f, "TTS_1", 2f);
         }
         if (Keyboard.current.numpad2Key.wasPressedThisFrame)
         {
@@ -61,6 +73,17 @@ public class ScenarioManager : MonoBehaviour
             water.SetActive(true);
             StartCoroutine(LandingCoroutine());
         }
+        if (Keyboard.current.numpad5Key.wasPressedThisFrame)
+        {
+            runningNPC.SetActive(true);
+            flightAttendent.SetActive(true);
+            foreach(NPC npc in runningNPCScripts)
+            {
+                flightAttendentScripts.Exit();
+                npc.Running();
+            }
+            Debug.Log("numpad5");
+        }
     }
 
     private IEnumerator OxygemMaskInfoAudio(float delay)
@@ -73,7 +96,7 @@ public class ScenarioManager : MonoBehaviour
     private IEnumerator LandingCoroutine()
     {
         water.SetActive(true);
-        soundManager.PlaySFX("µµÂø½ÃÂø¼ö»ç¿îµå");
+        soundManager.PlaySFX("ë„ì°©ì‹œì°©ìˆ˜ì‚¬ìš´ë“œ");
 
         yield return new WaitForSeconds(12f);
 
