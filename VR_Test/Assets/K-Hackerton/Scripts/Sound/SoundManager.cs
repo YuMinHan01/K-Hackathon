@@ -95,6 +95,14 @@ public class SoundManager : MonoBehaviour
     {
         StartCoroutine(PlayDelayedSFX(initialSFXName, delayedSFXName, delay));
     }
+    public void PlaySFXWithDoubleDelay(string firstSFXName, string secondSFXName, float firstDelay, string thirdSFXName, float secondDelay)
+    {
+        StartCoroutine(PlayDoubleDelayedSFX(firstSFXName, secondSFXName, firstDelay, thirdSFXName, secondDelay));
+    }
+    public void PlaySFXWithUIDelay(string firstSFXName, string secondSFXName, float delay, GameObject UIGameObject)
+    {
+        StartCoroutine(PlayDelayedWithUISFX(firstSFXName, secondSFXName, delay, UIGameObject));
+    }
 
     private IEnumerator PlayDelayedSFX(string initialSFXName, string delayedSFXName, float delay)
     {
@@ -115,5 +123,50 @@ public class SoundManager : MonoBehaviour
         yield return new WaitForSeconds(initialSFXLength + delay);
 
         PlaySFX(delayedSFXName);
+    }
+    private IEnumerator PlayDoubleDelayedSFX(string firstSFXName, string secondSFXName, float firstDelay, string thirdSFXName, float secondDelay)
+    {
+        StartCoroutine(PlayDelayedSFX(firstSFXName, secondSFXName, firstDelay));
+
+        float initialSFXLength = 0f;
+        foreach (Sound s in sfx)
+        {
+            if (s.name == firstSFXName)
+            {
+                initialSFXLength += s.clip.length;
+            }
+            if(s.name == secondSFXName)
+            {
+                initialSFXLength += s.clip.length;
+            }
+        }
+
+        yield return new WaitForSeconds(initialSFXLength + secondDelay);
+
+        PlaySFX(thirdSFXName);
+    }
+    private IEnumerator PlayDelayedWithUISFX(string firstSFXName, string secondSFXName, float delay, GameObject UIGameObject)
+    {
+        PlaySFX(firstSFXName);
+
+        // 첫 번째 SFX의 길이만큼 대기
+        float initialSFXLength = 0f;
+        foreach (Sound s in sfx)
+        {
+            if (s.name == firstSFXName)
+            {
+                initialSFXLength = s.clip.length;
+                break;
+            }
+        }
+
+        // 첫 번째 SFX가 끝난 후 추가적인 지연을 적용
+        yield return new WaitForSeconds(initialSFXLength + delay);
+
+        PlaySFX(secondSFXName);
+
+        yield return new WaitForSeconds(delay);
+
+        UIGameObject.SetActive(true);
     }
 }

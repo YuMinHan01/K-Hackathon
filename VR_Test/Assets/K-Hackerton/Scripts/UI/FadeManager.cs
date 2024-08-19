@@ -21,13 +21,15 @@ public class FadeManager : MonoBehaviour
         fadeCanvas.transform.localScale = new Vector3(1f, 1f, 1f); // 필요에 따라 조정
     }
 
-    public void LoadSceneWithFade(string sceneName)
+    public void StartFade()
     {
-        StartCoroutine(FadeOutAndLoadScene(sceneName));
+        StartCoroutine(FadeOut());
+        StartCoroutine(FadeIn());
     }
-
     private IEnumerator FadeIn()
     {
+        yield return new WaitForSeconds(1f);
+
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
@@ -37,20 +39,7 @@ public class FadeManager : MonoBehaviour
             yield return null;
         }
     }
-
-    public IEnumerator FadeInOnly()
-    {
-        float elapsedTime = 0f;
-        while (elapsedTime < fadeDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float alpha = Mathf.Clamp01(1f - elapsedTime / fadeDuration);
-            fadeImage.color = new Color(0f, 0f, 0f, alpha);
-            yield return null;
-        }
-    }
-
-    private IEnumerator FadeOutAndLoadScene(string sceneName)
+    private IEnumerator FadeOut()
     {
         // Fade Out
         float elapsedTime = 0f;
@@ -61,8 +50,5 @@ public class FadeManager : MonoBehaviour
             fadeImage.color = new Color(0f, 0f, 0f, alpha);
             yield return null;
         }
-        // Scene 전환 후 Fade In
-        yield return SceneManager.LoadSceneAsync(sceneName);
-        StartCoroutine(FadeInOnly());
     }
 }
