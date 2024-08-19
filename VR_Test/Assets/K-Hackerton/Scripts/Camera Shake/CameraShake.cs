@@ -32,14 +32,14 @@ public class CameraShake : MonoBehaviour
         initialPosition = cameraTransform.localPosition;
 
         // Perlin Noise의 시드를 생성합니다.
-        noiseSeedX = Random.Range(0f, 10f);
-        noiseSeedY = Random.Range(0f, 10f);
-        noiseSeedZ = Random.Range(0f, 10f);
+        noiseSeedX = Random.Range(0f, 1f);
+        noiseSeedY = Random.Range(0f, 1f);
+        noiseSeedZ = Random.Range(0f, 1f);
     }
 
     void Update()
     {
-        // 키보드의 b 키를 눌렀을 때 흔들림 시작
+        // 키보드의 k 키를 눌렀을 때 흔들림 시작
         if (Keyboard.current.kKey.wasPressedThisFrame)
         {
             Debug.Log("카메라 흔들림");
@@ -49,9 +49,10 @@ public class CameraShake : MonoBehaviour
         if (currentShakeDuration > 0)
         {
             // Perlin Noise를 이용한 흔들림 구현
-            float x = Mathf.PerlinNoise(noiseSeedX, Time.time * shakeMagnitude) * 2 - 1;
-            float y = Mathf.PerlinNoise(noiseSeedY, Time.time * shakeMagnitude) * 2 - 1;
-            float z = Mathf.PerlinNoise(noiseSeedZ, Time.time * shakeMagnitude) * 2 - 1;
+            float x = (Mathf.PerlinNoise(noiseSeedX, Time.time * shakeMagnitude) * 2 - 1) * 0.5f;
+            float y = (Mathf.PerlinNoise(noiseSeedY, Time.time * shakeMagnitude) * 2 - 1) * 0.5f;
+            float z = (Mathf.PerlinNoise(noiseSeedZ, Time.time * shakeMagnitude) * 2 - 1) * 0.5f;
+
 
             cameraTransform.localPosition = initialPosition + new Vector3(x, y, z);
 

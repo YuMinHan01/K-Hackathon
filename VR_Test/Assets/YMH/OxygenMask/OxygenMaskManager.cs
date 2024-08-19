@@ -59,10 +59,6 @@ namespace OxygenMask
         }
         private void Update()
         {
-            if (Keyboard.current.lKey.wasPressedThisFrame)
-            {
-                OnDrop();
-            }
             if (Keyboard.current.pKey.wasPressedThisFrame)
                 OnWear();
             if (Keyboard.current.oKey.wasPressedThisFrame)
@@ -120,7 +116,7 @@ namespace OxygenMask
             hangAnScript.OnSelectEnterdOxygenMask();
             pullScript.OnPull();
         }
-        private void OnDrop() 
+        public void OnDrop() 
         {
             rigid.useGravity = true;
             rigid.isKinematic = false;
