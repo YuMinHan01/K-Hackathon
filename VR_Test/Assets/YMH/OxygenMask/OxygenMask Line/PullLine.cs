@@ -11,8 +11,11 @@ public class PullLine : MonoBehaviour
 {
     private Transform[] points;
     private LineRenderer lineRenderer;
+    [SerializeField]
     private XRGrabInteractable pullObject;
+    [SerializeField]
     private Rigidbody rigid;
+
 
     public bool isActive = false;
     public bool isSelect = false;
@@ -27,12 +30,12 @@ public class PullLine : MonoBehaviour
 
         pullObject.selectEntered.AddListener(OnSelectEntered);
         pullObject.selectExited.AddListener(OnSelectExited);
-
-        points[1].gameObject.SetActive(false);
     }
     public void Init(float pullDistance)
     {
         this.pullDistance = pullDistance;
+
+        points[1].gameObject.SetActive(false);
     }
     private void Update()
     {

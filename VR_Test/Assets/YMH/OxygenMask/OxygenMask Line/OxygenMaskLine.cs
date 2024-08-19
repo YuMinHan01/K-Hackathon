@@ -8,6 +8,7 @@ namespace OxygenMask.Line
 {
     public class OxygenMaskLine : MonoBehaviour
     {
+        [SerializeField]
         private Rigidbody rigid;
         private LineRenderer lineRenderer;
         private Transform[] linePoints;
@@ -17,7 +18,7 @@ namespace OxygenMask.Line
 
         private void Start()
         {
-            rigid = GetComponentInChildren<Rigidbody>();
+            rigid = GetComponentsInChildren<Rigidbody>()[1];
             lineRenderer = GetComponent<LineRenderer>();
             linePoints = new Transform[3];
 

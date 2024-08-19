@@ -1,3 +1,4 @@
+using LifeJacket.Body;
 using OxygenMask;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ public class ScenarioManager : MonoBehaviour
     GameObject runningNPC;
     GameObject flightAttendent;
     FlightAttendent flightAttendentScripts;
+    GameObject lifeJacketUI;
+    GameObject EndingUI;
 
     NPC[] runningNPCScripts;
 
@@ -32,6 +35,8 @@ public class ScenarioManager : MonoBehaviour
         runningNPCScripts = runningNPC.GetComponentsInChildren<NPC>();
         flightAttendent = GameObject.Find("Flight Attendent");
         flightAttendentScripts = GameObject.Find("Flight Attendent").GetComponent<FlightAttendent>();
+        lifeJacketUI = GameObject.Find("LifeJacket UI");
+        EndingUI = GameObject.Find("Ending UI");
     }
     void Start()
     {
@@ -42,6 +47,8 @@ public class ScenarioManager : MonoBehaviour
         }
         oxygenMaskUI.SetActive(false);
         landingUI.SetActive(false);
+        lifeJacketUI.SetActive(false);
+        EndingUI.SetActive(false);
         water.SetActive(false);
         runningNPC.SetActive(false);
         flightAttendent.SetActive(false);
@@ -75,14 +82,15 @@ public class ScenarioManager : MonoBehaviour
         }
         if (Keyboard.current.numpad5Key.wasPressedThisFrame)
         {
-            runningNPC.SetActive(true);
-            flightAttendent.SetActive(true);
-            foreach(NPC npc in runningNPCScripts)
-            {
-                flightAttendentScripts.Exit();
-                npc.Running();
-            }
-            Debug.Log("numpad5");
+            StartCoroutine(RunningCoroutine());
+        }
+        if (Keyboard.current.numpad6Key.wasPressedThisFrame)
+        {
+            flightAttendentScripts.EscapeAll();
+        }
+        if (Keyboard.current.numpad0Key.wasPressedThisFrame)
+        {
+            EndingUI.SetActive(true);
         }
     }
 
@@ -101,7 +109,22 @@ public class ScenarioManager : MonoBehaviour
         yield return new WaitForSeconds(12f);
 
         fadeManager.StartFade();
+    }
+    private IEnumerator RunningCoroutine()
+    {
+        runningNPC.SetActive(true);
+        flightAttendent.SetActive(true);
+        foreach (NPC npc in runningNPCScripts)
+        {
+            npc.Running();
+        }
+        flightAttendentScripts.Exit();
 
+        soundManager.PlaySFX("TTS_6");
+
+        yield return new WaitForSeconds(1f);
+
+        lifeJacketUI.SetActive(true);
     }
 }
 

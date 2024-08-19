@@ -68,6 +68,8 @@ namespace OxygenMask
             {
                 OnWear();
             }
+            if (pullScript.isActive)
+                oxygenMaskGrabInteractable.enabled = true;
         }
         private void OnSelectEntered(SelectEnterEventArgs args)
         {
@@ -77,6 +79,8 @@ namespace OxygenMask
         private void OnSelectExited(SelectExitEventArgs args)
         {
             hangAnScript.OnSelectExitedOxygenMask();
+            if (isWear)
+                transform.parent = null;
             //nearFarInteractors[index].interactionLayers = InteractionLayerMask.GetMask("Default");
         }
         private void CheckControllerDir(SelectEnterEventArgs args)
@@ -96,6 +100,10 @@ namespace OxygenMask
         }
         private void OnWear()
         {
+            if (isWear)
+                return;
+
+            isWear = true;
             //손으로 잡고 있는 물체 모두 놓기
             foreach (XRGrabInteractable interactable in interactables)
             {
@@ -135,7 +143,7 @@ namespace OxygenMask
         }
         public void CanTackOff()
         {
-            oxygenMaskGrabInteractable.enabled = true;
+            transform.parent = null;
         }
     }
 }

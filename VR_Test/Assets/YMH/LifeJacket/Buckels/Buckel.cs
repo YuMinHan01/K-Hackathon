@@ -13,6 +13,7 @@ namespace LifeJacket.Buckel
 
         [SerializeField]
         private Transform startPoint, endPoint;
+        public Vector3 poision;
 
         private void Awake()
         {
@@ -61,8 +62,10 @@ namespace LifeJacket.Buckel
         {
             GetComponentInChildren<BoxCollider>().enabled = false;
 
-            Vector3 newVector3 = new Vector3(0, -0.47f, 0);
-            endPoint.localPosition = newVector3;
+            endPoint.localPosition = poision;
+            endPoint.localRotation = Quaternion.Euler(new Vector3(90, 0, 0));
+
+            CreateString();
         }
     }
 }

@@ -12,7 +12,7 @@ public class OxygenMaskPull : MonoBehaviour
     private float beforePullSize;
     private float afterPullSize;
 
-    private bool isActive = false;
+    public bool isActive = false;
     private float requiredTime = 1.0f;
     private float currentValue;
 
@@ -29,7 +29,7 @@ public class OxygenMaskPull : MonoBehaviour
         foreach (var pullLine in pullLines)
             pullLine.Init(pullDistance);
 
-        OxygenMask2 = GameObject.Find("OxygenMask2");
+        OxygenMask2 = transform.parent.parent.Find("OxygenMask2").gameObject;
         OxygenMask2.transform.localScale = new Vector3(beforePullSize, beforePullSize, beforePullSize);
     }
     private void Update()
@@ -41,9 +41,8 @@ public class OxygenMaskPull : MonoBehaviour
         }
             
 
-        if (pullLines[0].isActive && pullLines[1].isActive)
+        if (pullLines[0].isActive && pullLines[1].isActive && !isActive)
         {
-            Debug.Log("魂家付胶农 何前");
             isActive = true;
             OnInflates();
         }
