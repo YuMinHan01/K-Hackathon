@@ -3,7 +3,14 @@ using UnityEngine.InputSystem;
 
 public class CameraShake : MonoBehaviour
 {
-    public Transform cameraTransform; // 흔들리게 할 카메라의 Transform
+    [SerializeField]
+    Transform cameraTransform; // 흔들리게 할 카메라의 Transform
+
+    public Transform headTransform
+    {
+        get => cameraTransform;
+        set => cameraTransform = value;
+    }
 
     [Header("Camera Shake Settings")]
     [Tooltip("카메라가 흔들리는 지속 시간")]

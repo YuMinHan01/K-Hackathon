@@ -35,7 +35,7 @@ public class NPC : MonoBehaviour
     }
 
     private void OnTriggerStay(Collider other) {
-        Debug.Log("SlideSit");
+        //Debug.Log("SlideSit");
         animator.SetTrigger("SlideSit");
         _state = State.Slide_Sitting;
     }
