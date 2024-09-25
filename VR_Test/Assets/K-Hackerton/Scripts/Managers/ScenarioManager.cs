@@ -56,11 +56,11 @@ public class ScenarioManager : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current.numpad1Key.wasPressedThisFrame)
+        if (Keyboard.current.qKey.wasPressedThisFrame)
         { 
             soundManager.PlaySFXWithDoubleDelay("이륙", "엔진터지는소리", 1f, "TTS_1", 2f);
         }
-        if (Keyboard.current.numpad2Key.wasPressedThisFrame)
+        if (Keyboard.current.wKey.wasPressedThisFrame)
         {
             foreach(OxygenMaskManager oxygemMaskManager in oxygenMaskManagers)
             {
@@ -69,26 +69,26 @@ public class ScenarioManager : MonoBehaviour
 
             StartCoroutine(OxygemMaskInfoAudio(1f));
         }
-        if (Keyboard.current.numpad3Key.wasPressedThisFrame)
+        if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             oxygenMaskUI.SetActive(false);
             soundManager.PlaySFXWithUIDelay("TTS_3", "TTS_5", 1f, landingUI);
         }
-        if (Keyboard.current.numpad4Key.wasPressedThisFrame)
+        if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             landingUI.SetActive(false);
             water.SetActive(true);
             StartCoroutine(LandingCoroutine());
         }
-        if (Keyboard.current.numpad5Key.wasPressedThisFrame)
+        if (Keyboard.current.tKey.wasPressedThisFrame)
         {
             StartCoroutine(RunningCoroutine());
         }
-        if (Keyboard.current.numpad6Key.wasPressedThisFrame)
+        if (Keyboard.current.yKey.wasPressedThisFrame)
         {
             flightAttendentScripts.EscapeAll();
         }
-        if (Keyboard.current.numpad0Key.wasPressedThisFrame)
+        if (Keyboard.current.uKey.wasPressedThisFrame)
         {
             EndingUI.SetActive(true);
         }
