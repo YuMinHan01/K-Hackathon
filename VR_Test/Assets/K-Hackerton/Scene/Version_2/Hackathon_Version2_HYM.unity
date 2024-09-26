@@ -1597,6 +1597,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
   m_PrefabInstance: {fileID: 888945345}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &155232824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 155232825}
+  m_Layer: 0
+  m_Name: Right Pull Point Grab Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &155232825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155232824}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 335307778}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &165166045
 GameObject:
   m_ObjectHideFlags: 0
@@ -3026,6 +3057,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329397353}
   m_CullTransparentMesh: 1
+--- !u!4 &335307778 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2698584812680562287, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+  m_PrefabInstance: {fileID: 2070413588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &338115266 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
@@ -5791,6 +5827,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+--- !u!1 &561768740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 561768741}
+  m_Layer: 0
+  m_Name: Left Pull Point Grab Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &561768741
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561768740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.5, y: 3.3, z: -4.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1403514405}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &578696182
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5900,7 +5967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &588354049
 Transform:
   m_ObjectHideFlags: 0
@@ -13114,6 +13181,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+--- !u!1 &1314411977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1314411978}
+  m_Layer: 0
+  m_Name: OxygenMask Grab Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1314411978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314411977}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.003759649, y: -0.32792002, z: 0.9325529, w: -0.15099509}
+  m_LocalPosition: {x: 0.0046, y: -0.0034, z: -0.0042}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1934107121}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1316140283
 GameObject:
   m_ObjectHideFlags: 0
@@ -13875,6 +13973,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+--- !u!4 &1403514405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 260105029150358904, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+  m_PrefabInstance: {fileID: 2070413588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1404399368
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15166,7 +15269,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4813, y: 1.8686, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 474033605}
@@ -15773,7 +15876,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.1, z: 0.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7346773, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 474033605}
@@ -19614,6 +19717,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932326472}
   m_CullTransparentMesh: 1
+--- !u!4 &1934107121 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2831318330532754980, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+  m_PrefabInstance: {fileID: 2070413588}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1934425572 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
@@ -20646,13 +20754,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 3417624207855814765, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417624207855814765, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_AttachTransform
+      value: 
+      objectReference: {fileID: 1314411978}
     - target: {fileID: 4079016534932038932, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4440019464537586665, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_Name
-      value: Pull Point
+      value: Left Pull Point
       objectReference: {fileID: 0}
     - target: {fileID: 4788484600061405332, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20706,10 +20822,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.00032
       objectReference: {fileID: 0}
+    - target: {fileID: 5820772003844653869, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_AttachTransform
+      value: 
+      objectReference: {fileID: 561768741}
     - target: {fileID: 6139896761247353862, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6645657185882559098, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_AttachTransform
+      value: 
+      objectReference: {fileID: 155232825}
     - target: {fileID: 7060175317675966004, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_Name
       value: OxygenMask
@@ -20721,6 +20845,10 @@ PrefabInstance:
     - target: {fileID: 7597463992463839509, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987544817791534703, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      propertyPath: m_Name
+      value: Right Pull Point
       objectReference: {fileID: 0}
     - target: {fileID: 8108788229764254578, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
       propertyPath: pullDistance
@@ -20736,7 +20864,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2831318330532754980, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1314411978}
+    - targetCorrespondingSourceObject: {fileID: 260105029150358904, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 561768741}
+    - targetCorrespondingSourceObject: {fileID: 2698584812680562287, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 155232825}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de2b9ab17bd28e4693d041ff7509055, type: 3}
 --- !u!1 &2072583529
