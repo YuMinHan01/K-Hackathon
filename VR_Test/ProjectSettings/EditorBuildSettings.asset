@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/K-Hackerton/Scene/StartScene.unity
     guid: 7dc398febfb58e241a19f4783cdbe25d
   - enabled: 1
-    path: Assets/K-Hackerton/Scene/Hackathon_HYM.unity
+    path: Assets/K-Hackerton/Scene/Version_1/Hackathon_HYM.unity
     guid: d7ea34df26fab52449303a627371db75
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260, type: 2}

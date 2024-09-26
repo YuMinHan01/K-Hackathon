@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,8 @@ public class CameraShake : MonoBehaviour
     [SerializeField]
     Transform cameraTransform; // 흔들리게 할 카메라의 Transform
 
+    private GameObject XrOrigin;
+
     public Transform headTransform
     {
         get => cameraTransform;
@@ -13,12 +16,15 @@ public class CameraShake : MonoBehaviour
     }
 
     [Header("Camera Shake Settings")]
+    [SerializeField]
     [Tooltip("카메라가 흔들리는 지속 시간")]
     public float shakeDuration = 1.0f; // 흔들리는 시간
 
+    [SerializeField]
     [Tooltip("카메라 흔들림의 강도")]
     public float shakeMagnitude = 0.1f; // 흔들림의 강도
 
+    [SerializeField]
     [Tooltip("카메라 흔들림이 서서히 멈추는 속도")]
     public float dampingSpeed = 1.0f; // 흔들림이 서서히 멈추는 속도
 
@@ -31,6 +37,7 @@ public class CameraShake : MonoBehaviour
 
     void Start()
     {
+        XrOrigin = GameObject.Find("XR Origin (XR Rig)");
         if (cameraTransform == null)
         {
             cameraTransform = GetComponent(typeof(Transform)) as Transform;
@@ -51,6 +58,7 @@ public class CameraShake : MonoBehaviour
         {
             Debug.Log("카메라 흔들림");
             TriggerShake(shakeDuration);
+            StartCoroutine(EnabledShake()); // CameraShake 이후 Script enabled 해서 Move 활성화
         }
 
         if (currentShakeDuration > 0)
@@ -76,5 +84,24 @@ public class CameraShake : MonoBehaviour
     public void TriggerShake(float duration)
     {
         currentShakeDuration = duration;
+    }
+
+    public void Enabled(GameObject XrOrigin)
+    {
+        CameraShake CameraShakeEnabled = XrOrigin.GetComponent<CameraShake>();
+        if (CameraShakeEnabled != null)
+        {
+            CameraShakeEnabled.enabled = false;
+        }
+        else
+        {
+            Debug.Log("CameraShake Script 연결 실패");
+        }
+    }
+
+    IEnumerator EnabledShake()
+    {
+        yield return new WaitForSeconds(shakeDuration);
+        Enabled(XrOrigin);
     }
 }

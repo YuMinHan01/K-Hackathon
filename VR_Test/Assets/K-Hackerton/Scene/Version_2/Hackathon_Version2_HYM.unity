@@ -4369,7 +4369,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474033604}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4da34e126d9296e43b01e8f627a81113, type: 3}
   m_Name: 
@@ -5900,7 +5900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &588354049
 Transform:
   m_ObjectHideFlags: 0
@@ -12966,11 +12966,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handle: {fileID: 1116216356}
-  handle_Point: {fileID: 39079970}
+  slide: {fileID: 1764454466}
   slidePoint: {fileID: 1261810726}
   rope: {fileID: 1807759394}
   airliner: {fileID: 1660036613}
-  openDoorTail: {fileID: 1764454466}
+  OxygenMask: {fileID: 801142003}
   triggerDistance: 1
   slideSpeed: 2
   xIncrement: 0.5
@@ -13455,7 +13455,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2880911896193333385, guid: bff6ed501140956419eae7fa32b58dd8, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

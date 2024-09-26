@@ -4,12 +4,12 @@ using UnityEngine.AI;
 
 public class SlideMovementController : MonoBehaviour
 {
-    public GameObject handle;          // 손잡이 오브젝트
-    public GameObject handle_Point;
-    public GameObject slidePoint;      // 슬라이드 포인트 (슬라이드의 시작 위치)
-    public GameObject rope;            // Rope 오브젝트
-    public GameObject airliner;        // Airliner 오브젝트 (이 오브젝트가 움직임)
-    public GameObject openDoorTail;    // Open_door_tail 오브젝트 (분리될 오브젝트)
+    [SerializeField] private GameObject handle;          // 손잡이 오브젝트
+    [SerializeField] private GameObject slide;
+    [SerializeField] private GameObject slidePoint;      // 슬라이드 포인트 (슬라이드의 시작 위치)
+    [SerializeField] private GameObject rope;            // Rope 오브젝트
+    [SerializeField] private GameObject airliner;        // Airliner 오브젝트 (이 오브젝트가 움직임)
+    [SerializeField] private GameObject OxygenMask;      // OxygenMask 오브젝트
 
     public float triggerDistance = 1.0f;  // 일정 거리를 public 변수로 설정
     public float slideSpeed = 1.0f;       // 슬라이드의 이동 속도
@@ -20,9 +20,11 @@ public class SlideMovementController : MonoBehaviour
 
     void Update()
     {
+        // slide Move
         if (slideActivated)
         {
             NavMeshDestroy(airliner);
+            OxygenMaskDestroy();
             MoveAirliner();
         }
         else
@@ -45,7 +47,7 @@ public class SlideMovementController : MonoBehaviour
         Destroy(handle);
 
         // Open_door_tail 오브젝트를 Airliner에서 분리
-        openDoorTail.transform.parent = null;
+        slide.transform.parent = null;
 
         // Airliner 이동을 활성화
         slideActivated = true;
@@ -66,17 +68,22 @@ public class SlideMovementController : MonoBehaviour
 
     private void NavMeshDestroy(GameObject airliner)
     {
-        // NavMeshAgent가 존재하는지 확인
+        // NavMeshSurface가 존재하는지 확인
         NavMeshSurface agent = airliner.GetComponent<NavMeshSurface>();
         if (agent != null)
         {
-            // NavMeshAgent가 있을 경우 비활성화
+            // NavMeshSurface가 있을 경우 비활성화
             agent.enabled = false;
         }
         else
         {
             // 존재하지 않으면 경고 로그 출력
-            Debug.LogWarning("NavMeshAgent 컴포넌트가 Airliner 오브젝트에 존재하지 않습니다.");
+            Debug.LogWarning("NavMeshSurface 컴포넌트가 Airliner 오브젝트에 존재하지 않습니다.");
         }
+    }
+
+    private void OxygenMaskDestroy()
+    {
+        Destroy(OxygenMask);
     }
 }
