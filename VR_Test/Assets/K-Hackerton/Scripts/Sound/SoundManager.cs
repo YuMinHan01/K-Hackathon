@@ -19,6 +19,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioSource bgmPlayer = null;
     [SerializeField] AudioSource[] sfxPlayer = null;
 
+    public static bool ScenEnd = false;
+
     private void Awake()
     {
         // Singleton pattern
@@ -95,9 +97,9 @@ public class SoundManager : MonoBehaviour
     {
         StartCoroutine(PlayDelayedSFX(initialSFXName, delayedSFXName, delay));
     }
-    public void PlaySFXWithDoubleDelay(string firstSFXName, string secondSFXName, float firstDelay, string thirdSFXName, float secondDelay)
+    public void PlaySFXWithDoubleDelay(string firstSFXName, string secondSFXName, float firstDelay, string thirdSFXName, float secondDelay, System.Action<float> onComplete)
     {
-        StartCoroutine(PlayDoubleDelayedSFX(firstSFXName, secondSFXName, firstDelay, thirdSFXName, secondDelay));
+        StartCoroutine(PlayDoubleDelayedSFX(firstSFXName, secondSFXName, firstDelay, thirdSFXName, secondDelay, onComplete));
     }
     public void PlaySFXWithUIDelay(string firstSFXName, string secondSFXName, float delay, GameObject UIGameObject)
     {
@@ -124,7 +126,7 @@ public class SoundManager : MonoBehaviour
 
         PlaySFX(delayedSFXName);
     }
-    private IEnumerator PlayDoubleDelayedSFX(string firstSFXName, string secondSFXName, float firstDelay, string thirdSFXName, float secondDelay)
+    private IEnumerator PlayDoubleDelayedSFX(string firstSFXName, string secondSFXName, float firstDelay, string thirdSFXName, float secondDelay, System.Action<float> onComplete)
     {
         StartCoroutine(PlayDelayedSFX(firstSFXName, secondSFXName, firstDelay));
 
@@ -144,6 +146,8 @@ public class SoundManager : MonoBehaviour
         yield return new WaitForSeconds(initialSFXLength + secondDelay);
 
         PlaySFX(thirdSFXName);
+
+        onComplete?.Invoke(initialSFXLength + firstDelay + secondDelay);
     }
     private IEnumerator PlayDelayedWithUISFX(string firstSFXName, string secondSFXName, float delay, GameObject UIGameObject)
     {
@@ -167,6 +171,8 @@ public class SoundManager : MonoBehaviour
 
         yield return new WaitForSeconds(delay);
 
-        UIGameObject.SetActive(true);
+        //UIGameObject.SetActive(true);
+
+        ScenEnd = true;
     }
 }

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class OxygenMaskPull : MonoBehaviour
 {
+    [SerializeField]
+    private OxygemMaskScen_2 oxygenMaskScen_2;
     [SerializeField]
     private GameObject OxygenMask2;
     private PullLine[] pullLines;
@@ -13,15 +16,24 @@ public class OxygenMaskPull : MonoBehaviour
     private float afterPullSize;
 
     public bool isActive = false;
+    public bool isLineDisabled = false; // 상태 공유 변수
     private float requiredTime = 1.0f;
     private float currentValue;
 
-    private void Start()
-    {
+    private void Start(){
         pullLines = GetComponentsInChildren<PullLine>();
+        // oxygenMaskScen_2 동적 연결
+        if (oxygenMaskScen_2 == null)
+        {
+            oxygenMaskScen_2 = FindObjectOfType<OxygemMaskScen_2>();
+            Debug.Log("OxygemMaskScen_2 동적 연결");
+            if (oxygenMaskScen_2 == null)
+            {
+                Debug.LogError("OxygemMaskScen_2를 찾을 수 없습니다. Inspector에서 연결하세요.");
+            }
+        }
     }
-    public void Init(float pullDistance, float beforePullSize, float afterPullSize)
-    {
+    public void Init(float pullDistance, float beforePullSize, float afterPullSize){
         this.pullDistance = pullDistance;
         this.beforePullSize = beforePullSize;
         this.afterPullSize = afterPullSize;
@@ -37,6 +49,9 @@ public class OxygenMaskPull : MonoBehaviour
         if (isActive && !pullLines[0].isSelect && !pullLines[1].isSelect)
         {
             gameObject.SetActive(false);
+            isLineDisabled = true; // 상태 변수 업데이트
+            Debug.Log("OxygenMaskLine 비활성화");
+            oxygenMaskScen_2.SetisCompleted(); // 상태 변수 업데이트
             return;
         }
             

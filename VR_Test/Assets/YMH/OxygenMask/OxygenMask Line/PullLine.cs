@@ -68,7 +68,7 @@ public class PullLine : MonoBehaviour
         {
             linePoints[1] = transform.InverseTransformPoint(points[1].position);
 
-            //´ç±â¸é ºÎÇ®´Â ±â´É
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç®ï¿½ï¿½ ï¿½ï¿½ï¿½
             float distance = Vector3.Distance(points[0].position, points[1].position);
             if (distance >= pullDistance)
                 isActive = true;
