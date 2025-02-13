@@ -26,7 +26,7 @@ public class OxygenMaskPull : MonoBehaviour
         if (oxygenMaskScen_2 == null)
         {
             oxygenMaskScen_2 = FindObjectOfType<OxygemMaskScen_2>();
-            Debug.Log("OxygemMaskScen_2 동적 연결");
+            //Debug.Log("OxygemMaskScen_2 동적 연결");
             if (oxygenMaskScen_2 == null)
             {
                 Debug.LogError("OxygemMaskScen_2를 찾을 수 없습니다. Inspector에서 연결하세요.");

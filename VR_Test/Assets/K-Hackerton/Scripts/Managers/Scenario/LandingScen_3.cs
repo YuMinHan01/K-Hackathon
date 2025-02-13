@@ -9,14 +9,18 @@ public class LandingScen_3 : MonoBehaviour, IScenario
     GameObject oxygenMaskUI;
     GameObject landingUI;
     GameObject sea;
-    FadeManager fadeManager;
+
+    VR_FadeEffect fadeEffect;
+
+    float initialSFXLength = 0f;
 
     private void Awake(){
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         oxygenMaskUI = GameObject.Find("OxygenMask UI");
-        landingUI = GameObject.Find("LandingUI");
+        landingUI = GameObject.Find("Landing UI");
         sea = GameObject.Find("Sea");
-        fadeManager = GameObject.Find("FadeIn_FadeOut").GetComponent<FadeManager>();
+        //fadeManager = GameObject.Find("FadeIn_FadeOut").GetComponent<FadeManager>();
+        fadeEffect = GameObject.Find("FadeIn-Out").GetComponent<VR_FadeEffect>();
     }
 
     public void StartScenario(){
@@ -46,18 +50,28 @@ public class LandingScen_3 : MonoBehaviour, IScenario
     {
         if(SoundManager.ScenEnd){
             Debug.Log("ScenEnd");
-            landingUI.SetActive(false);
-            sea.SetActive(true);    // 바다 활성화
+            landingUI.SetActive(true);
             StartCoroutine(LandingCoroutine());
+            SoundManager.ScenEnd = false;
             return;
         }
     }
 
     IEnumerator LandingCoroutine(){
         soundManager.PlaySFX("비상착수시소리");
+        initialSFXLength = soundManager.SFXLength("비상착수시소리");
+        Debug.Log(initialSFXLength);
+        yield return new WaitForSeconds(initialSFXLength + 3f);
+        sea.SetActive(true);    // 바다 활성화
+        StartCoroutine(TransitionRoutine());
+    }
 
-        yield return new WaitForSeconds(13f);
-        fadeManager.StartFade();
+    private IEnumerator TransitionRoutine()
+    {
+        yield return fadeEffect.FadeIn(); // 화면 검게 변함
+        yield return new WaitForSeconds(1.0f); // 잠깐 대기
+        yield return fadeEffect.FadeOut(); // 화면 밝아짐
+        Debug.Log("LandingScen_3 완료");
     }
 
 

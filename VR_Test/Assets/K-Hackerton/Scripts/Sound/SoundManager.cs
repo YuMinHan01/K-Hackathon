@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 [System.Serializable]
@@ -153,26 +154,35 @@ public class SoundManager : MonoBehaviour
     {
         PlaySFX(firstSFXName);
 
-        // 첫 번째 SFX의 길이만큼 대기
         float initialSFXLength = 0f;
-        foreach (Sound s in sfx)
-        {
-            if (s.name == firstSFXName)
-            {
-                initialSFXLength = s.clip.length;
-                break;
-            }
-        }
+
+        initialSFXLength = SFXLength(firstSFXName);
 
         // 첫 번째 SFX가 끝난 후 추가적인 지연을 적용
         yield return new WaitForSeconds(initialSFXLength + delay);
 
         PlaySFX(secondSFXName);
 
-        yield return new WaitForSeconds(delay);
+        initialSFXLength = SFXLength(secondSFXName);
+
+        yield return new WaitForSeconds(initialSFXLength + delay);
+        Debug.Log("딜레이끝");
 
         //UIGameObject.SetActive(true);
 
         ScenEnd = true;
+    }
+
+    public float SFXLength(string sfxName){
+        float initialSFXLength = 0f;
+        foreach (Sound s in sfx)
+        {
+            if (s.name == sfxName)
+            {
+                initialSFXLength = s.clip.length;
+                break;
+            }
+        }
+        return initialSFXLength;
     }
 }
